@@ -35,7 +35,10 @@ return require('packer').startup(function(use)
     	}
   	}
 
-	use "windwp/nvim-autopairs"
+	use {
+		"windwp/nvim-autopairs",
+    	config = function() require("nvim-autopairs").setup {} end
+	}
 	use "tpope/vim-surround"
 	use 'tpope/vim-commentary' -- For Commenting gcc & gc
 	
@@ -47,8 +50,6 @@ return require('packer').startup(function(use)
 	use "mfussenegger/nvim-jdtls"
 	
 	use 'mhinz/vim-startify'
-	use "rmagatti/auto-session"
-
 	use "lewis6991/gitsigns.nvim"
   use "f-person/git-blame.nvim"
   use "ruifm/gitlinker.nvim"

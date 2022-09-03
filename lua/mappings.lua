@@ -96,14 +96,17 @@ local lspkind = require('lspkind')
 
 require('lspconfig')['pyright'].setup{
     on_attach = on_attach,
+	 capabilities = capabilities,
     flags = lsp_flags,
 }
 require('lspconfig')['tsserver'].setup{
     on_attach = on_attach,
+	 capabilities = capabilities,
     flags = lsp_flags,
 }
 require('lspconfig')['rust_analyzer'].setup{
     on_attach = on_attach,
+	 capabilities = capabilities,
     flags = lsp_flags,
     -- Server-specific settings...
     settings = {
@@ -113,15 +116,18 @@ require('lspconfig')['rust_analyzer'].setup{
 
 require('lspconfig')['clangd'].setup{
     on_attach = on_attach,
+	 capabilities = capabilities,
     flags = lsp_flags,
 }
 
 require('lspconfig')['jdtls'].setup{
     on_attach = on_attach,
+	 capabilities = capabilities,
     flags = lsp_flags,
 }
 require('lspconfig')['gopls'].setup{
     on_attach = on_attach,
+	 capabilities = capabilities,
     flags = lsp_flags,
 }
 
