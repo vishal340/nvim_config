@@ -1,6 +1,7 @@
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+
   use "williamboman/mason.nvim"
   use "williamboman/mason-lspconfig.nvim"
   use "onsails/lspkind.nvim"
@@ -14,26 +15,47 @@ return require('packer').startup(function(use)
 	use 'hrsh7th/cmp-cmdline'
 	use 'hrsh7th/nvim-cmp'
 
+	use({
+    "glepnir/lspsaga.nvim",
+    branch = "main",
+    config = function()
+        local saga = require("lspsaga")
+
+        saga.init_lsp_saga({
+            saga_winblend = 60,
+				max_preview_lines = 20,
+        })
+    end,
+	})
+
+	use {
+  		'nvim-lualine/lualine.nvim',
+  		requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+	}
+
   use 'L3MON4D3/LuaSnip'
   use 'saadparwaiz1/cmp_luasnip'
   use "rafamadriz/friendly-snippets"
 
-   use "nvim-treesitter/nvim-treesitter"
+   use {
+        'nvim-treesitter/nvim-treesitter',
+        run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    }
 	use 'nvim-treesitter/nvim-treesitter-textobjects'
 
 	use {
   		'nvim-telescope/telescope.nvim', branch = '0.1.x',
 	}
-	
+
 	use {
-  	"nvim-neo-tree/neo-tree.nvim",
-    	branch = "v2.x",
-    	requires = { 
-      		"nvim-lua/plenary.nvim",
-      		"kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
-      		"MunifTanjim/nui.nvim",
-    	}
-  	}
+	  'kyazdani42/nvim-tree.lua',
+	  requires = {
+		 'kyazdani42/nvim-web-devicons', -- optional, for file icons
+	  },
+	  tag = 'nightly' -- optional, updated every week. (see issue #1193)
+	}
+
+	use 'ten3roberts/window-picker.nvim'
 
 	use {
 		"windwp/nvim-autopairs",
@@ -50,8 +72,9 @@ return require('packer').startup(function(use)
 	use "mfussenegger/nvim-jdtls"
 	
 	use 'mhinz/vim-startify'
+	
 	use "lewis6991/gitsigns.nvim"
-  use "f-person/git-blame.nvim"
+	use "tpope/vim-fugitive"
   use "ruifm/gitlinker.nvim"
   use "mattn/vim-gist"
   use "pwntester/octo.nvim"

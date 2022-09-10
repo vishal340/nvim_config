@@ -31,7 +31,7 @@ set completeopt=menu,menuone,noselect
 
 let mapleader = " "
 
-map gf :edit <cfile><cr>
+nmap gf :edit <cfile><cr>
 
 nmap <leader>z :set foldmethod<cr>
 nmap <leader>cl :nohlsearch<cr>

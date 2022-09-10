@@ -1,8 +1,12 @@
 local opts = { noremap=true, silent=true }
-vim.keymap.set('n', 'df', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', 'dp', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', 'dn', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', 'dl', vim.diagnostic.setloclist, opts)
+local keymap = vim.keymap.set
+
+require('lspsaga').init_lsp_saga()
+
+keymap('n', 'df', vim.diagnostic.open_float, opts)
+keymap('n', 'dp', vim.diagnostic.goto_prev, opts)
+keymap('n', 'dn', vim.diagnostic.goto_next, opts)
+keymap('n', 'dl', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -10,23 +14,28 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'gh', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<leader>wl', function()
+  keymap('n', '<leader>gD', '<cmd>tab split| lua vim.lsp.buf.declaration()<cr>', bufopts)
+  keymap('n', '<leader>gd', '<cmd>tab split| lua vim.lsp.buf.definition()<cr>', bufopts)
+  keymap('n', '<leader>gi', '<cmd>tab split| lua vim.lsp.buf.implementation()<cr>', bufopts)
+  keymap('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  keymap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  keymap('n', '<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
-  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
-end
+  keymap('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+  keymap('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+  keymap('n', 'gr', '<cmd>tab split| lua vim.lsp.buf.references()<cr>', bufopts)
+  -- keymap('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
 
+  --TODO add more features from lspsaga
+  keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+  keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
+  keymap("v", "<leader>ca", "<cmd>Lspsaga range_code_action<CR>", { silent = true })
+  keymap("n", "gd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
+  keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
+  keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
+  keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
+end
 
 local cmp = require'cmp'
 local lspkind = require('lspkind')
@@ -132,17 +141,104 @@ require('lspconfig')['gopls'].setup{
 }
 
 --telescope
-vim.keymap.set('n','<leader>ff', '<cmd>lua require(\'telescope.builtin\').find_files()<cr>')
-vim.keymap.set('n', '<leader>fg', '<cmd>lua require(\'telescope.builtin\').live_grep()<cr>')
-vim.keymap.set('n', '<leader>fb', '<cmd>lua require(\'telescope.builtin\').buffers()<cr>')
-vim.keymap.set('n', '<leader>fh', '<cmd>lua require(\'telescope.builtin\').help_tags()<cr>')
-
---neotree
-vim.keymap.set('n', '<leader>e', ':Neotree<cr>')
-vim.keymap.set('n','<leader>gd', ':Neotree float reveal_file=<cfile> reveal_force_cwd<cr>')
+keymap('n','<leader>ff', '<cmd>lua require(\'telescope.builtin\').find_files()<cr>')
+keymap('n', '<leader>fg', '<cmd>lua require(\'telescope.builtin\').live_grep()<cr>')
+keymap('n', '<leader>fb', '<cmd>lua require(\'telescope.builtin\').buffers()<cr>')
+keymap('n', '<leader>fh', '<cmd>lua require(\'telescope.builtin\').help_tags()<cr>')
 
 --hop(find characters in file)
 vim.api.nvim_set_keymap('', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>", {})
 vim.api.nvim_set_keymap('', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>", {})
 vim.api.nvim_set_keymap('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>", {})
 vim.api.nvim_set_keymap('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>", {})
+
+require'nvim-web-devicons'.setup {
+ -- your personnal icons can go here (to override)
+ -- you can specify color or cterm_color instead of specifying both of them
+ -- DevIcon will be appended to `name`
+ override = {
+  zsh = {
+    icon = "",
+    color = "#428850",
+    cterm_color = "65",
+    name = "Zsh"
+  }
+ };
+ -- globally enable default icons (default to false)
+ -- will get overriden by `get_icons` option
+ default = true;
+}
+
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+}
+
+--nvim-tree
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    adaptive_size = true,
+    mappings = {
+      list = {
+        { key = "u", action = "dir_up" },
+      },
+    },
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+
+local node=require("nvim-tree.api").marks.list()
+require("nvim-tree.api").marks.toggle(node)
+
+keymap('n','<leader>e','<cmd>NvimTreeToggle<cr>',opts)
+keymap('n','<leader>ef','<cmd>NvimTreeFocus<cr>',opts)
+
+vim.keymap.set("n", "<leader>mn", require("nvim-tree.api").marks.navigate.next)
+vim.keymap.set("n", "<leader>mp", require("nvim-tree.api").marks.navigate.prev)
+vim.keymap.set("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select)
+
+--window-picker
+
+vim.api.nvim_set_keymap('n', '<leader>ww', "WindowPick",opts)
