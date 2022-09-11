@@ -242,3 +242,4 @@ vim.keymap.set("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select
 --window-picker
 
 vim.api.nvim_set_keymap('n', '<leader>ww', "WindowPick",opts)
+
