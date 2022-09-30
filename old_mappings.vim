@@ -16,7 +16,9 @@ set scrolloff=1
 set history=1000
 set belloff=all
 set clipboard+=unnamedplus
-set timeout timeoutlen=500 ttimeoutlen=100
+set timeout 
+set timeoutlen=1000 
+set ttimeoutlen=200
 set updatetime=100
 set nobackup
 set nowritebackup
@@ -63,15 +65,15 @@ inoremap <C-l> <C-o><C-w>l
 " In insert mode, pressing ctrl + numpad's+ increases the font
 inoremap <C-kPlus> <Esc>call AdjustFontSize(1)<CR>a
 inoremap <C-kMinus> <Esc>:call AdjustFontSize(-1)<CR>a
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap () ()<right>
-inoremap { {}<left>
-inoremap {} {}<right>
-inoremap [ []<left>
-inoremap [] []<right>
-inoremap <> <><left>
+" inoremap " ""<left>
+" inoremap ' ''<left>
+" inoremap ( ()<left>
+" inoremap () ()<right>
+" inoremap { {}<left>
+" inoremap {} {}<right>
+" inoremap [ []<left>
+" inoremap [] []<right>
+" inoremap <> <><left>
 
 tnoremap <C-h> <C-\><C-n><C-w>h
 tnoremap <C-j> <C-\><C-n><C-w>j

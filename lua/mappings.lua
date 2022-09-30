@@ -3,10 +3,10 @@ local keymap = vim.keymap.set
 
 require('lspsaga').init_lsp_saga()
 
-keymap('n', 'df', vim.diagnostic.open_float, opts)
-keymap('n', 'dp', vim.diagnostic.goto_prev, opts)
-keymap('n', 'dn', vim.diagnostic.goto_next, opts)
-keymap('n', 'dl', vim.diagnostic.setloclist, opts)
+keymap('n', '<leader>df', vim.diagnostic.open_float, opts)
+keymap('n', '<leader>dp', vim.diagnostic.goto_prev, opts)
+keymap('n', '<leader>dn', vim.diagnostic.goto_next, opts)
+keymap('n', '<leader>dl', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -63,6 +63,7 @@ local lspkind = require('lspkind')
       { name = 'luasnip' }, -- For luasnip users.
     }, {
       { name = 'buffer' },
+		{name = 'path'}
     }),
 	formatting = {
     format = lspkind.cmp_format({
@@ -242,4 +243,33 @@ vim.keymap.set("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select
 --window-picker
 
 vim.api.nvim_set_keymap('n', '<leader>ww', "WindowPick",opts)
+vim.api.nvim_set_keymap('n', '<leader>ws', "WindowSwap")
+vim.api.nvim_set_keymap('n', '<leader>wq', "WindowZap")
 
+--debug
+local dap = require('dap')
+dap.adapters.lldb = {
+    type = 'executable',
+    command = '/usr/bin/lldb-vscode-14', -- adjust as needed
+    name = "lldb"
+}
+
+dap.configurations.cpp = {
+  {
+    name = "Launch file",
+    type = "lldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+	 args = {},
+  },
+}
+
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp
+
+require("dapui").setup()
+require('Comment').setup()

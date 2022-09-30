@@ -6,6 +6,7 @@ return require('packer').startup(function(use)
   use "williamboman/mason-lspconfig.nvim"
   use "onsails/lspkind.nvim"
   use "jose-elias-alvarez/null-ls.nvim"
+  use "mfussenegger/nvim-lint"
   use "nvim-lua/plenary.nvim"
 	use "kyazdani42/nvim-web-devicons"
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
@@ -27,6 +28,9 @@ return require('packer').startup(function(use)
         })
     end,
 	})
+
+	use 'mfussenegger/nvim-dap'
+	use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 
 	use {
   		'nvim-lualine/lualine.nvim',
@@ -62,8 +66,14 @@ return require('packer').startup(function(use)
     	config = function() require("nvim-autopairs").setup {} end
 	}
 	use "tpope/vim-surround"
-	use 'tpope/vim-commentary' -- For Commenting gcc & gc
 	
+	use {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+	}
+
 	use {
     "iamcco/markdown-preview.nvim",
     run = "cd app && npm install",
@@ -80,7 +90,7 @@ return require('packer').startup(function(use)
   use "pwntester/octo.nvim"
 
   use {
-	  "B4mbus/todo-comments.nvim",
+	  "folke/todo-comments.nvim",
 	  requires = "nvim-lua/plenary.nvim",
 	  config = function()
 		 require("todo-comments").setup {
@@ -96,6 +106,15 @@ return require('packer').startup(function(use)
 	  end
 	}
 
-  use "folke/which-key.nvim"
+	  use {
+  			"folke/which-key.nvim",
+  			config = function()
+	    	require("which-key").setup {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  end
+	}
 
 end)
