@@ -14,9 +14,12 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  keymap('n', '<leader>gD', '<cmd>tab split| lua vim.lsp.buf.declaration()<cr>', bufopts)
-  keymap('n', '<leader>gd', '<cmd>tab split| lua vim.lsp.buf.definition()<cr>', bufopts)
-  keymap('n', '<leader>gi', '<cmd>tab split| lua vim.lsp.buf.implementation()<cr>', bufopts)
+  keymap('n', '<leader>gtD', '<cmd>tab split| lua vim.lsp.buf.declaration()<cr>', bufopts)
+  keymap('n', '<leader>gtd', '<cmd>tab split| lua vim.lsp.buf.definition()<cr>', bufopts)
+  keymap('n', '<leader>gti', '<cmd>tab split| lua vim.lsp.buf.implementation()<cr>', bufopts)
+  keymap('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', bufopts)
+  keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<cr>', bufopts)
+  keymap('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', bufopts)
   keymap('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   keymap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
   keymap('n', '<leader>wl', function()
@@ -25,16 +28,16 @@ local on_attach = function(client, bufnr)
   keymap('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
   keymap('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
   keymap('n', 'gr', '<cmd>tab split| lua vim.lsp.buf.references()<cr>', bufopts)
-  -- keymap('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
+  keymap('n', '<leader>bf', vim.lsp.buf.formatting, bufopts)
 
   --TODO add more features from lspsaga
-  keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+  keymap("n", "<leader>lf", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
   keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
-  keymap("v", "<leader>ca", "<cmd>Lspsaga range_code_action<CR>", { silent = true })
-  keymap("n", "gd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
-  keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
+  keymap("v", "<leader>rca", "<cmd>Lspsaga range_code_action<CR>", { silent = true })
+  keymap("n", "<leader>pd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
+  keymap("n", "<leader>ld", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
   keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
-  keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
+  keymap("n", "<leader>hd", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 end
 
 local cmp = require'cmp'
@@ -214,6 +217,7 @@ require('lualine').setup {
 --nvim-tree
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
+  open_on_tab = true,
   view = {
     adaptive_size = true,
     mappings = {
@@ -226,7 +230,7 @@ require("nvim-tree").setup({
     group_empty = true,
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
   },
 })
 
@@ -243,8 +247,8 @@ vim.keymap.set("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select
 --window-picker
 
 vim.api.nvim_set_keymap('n', '<leader>ww', "WindowPick",opts)
-vim.api.nvim_set_keymap('n', '<leader>ws', "WindowSwap")
-vim.api.nvim_set_keymap('n', '<leader>wq', "WindowZap")
+vim.api.nvim_set_keymap('n', '<leader>ws', "WindowSwap",opts)
+vim.api.nvim_set_keymap('n', '<leader>wq', "WindowZap",opts)
 
 --debug
 local dap = require('dap')
