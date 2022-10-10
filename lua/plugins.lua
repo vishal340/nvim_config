@@ -65,7 +65,14 @@ return require('packer').startup(function(use)
 		"windwp/nvim-autopairs",
     	config = function() require("nvim-autopairs").setup {} end
 	}
-	use "tpope/vim-surround"
+	use "tpope/vim-repeat"
+	
+	use {
+  		"ur4ltz/surround.nvim",
+		config = function()
+    		require"surround".setup {mappings_style = "surround"}
+  		end
+	}
 	
 	use {
     'numToStr/Comment.nvim',
@@ -110,9 +117,6 @@ return require('packer').startup(function(use)
   			"folke/which-key.nvim",
   			config = function()
 	    	require("which-key").setup {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
     }
   end
 	}
