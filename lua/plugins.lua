@@ -30,7 +30,6 @@ return require('packer').startup(function(use)
 	})
 
 	use 'mfussenegger/nvim-dap'
-	use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 
 	use {
   		'nvim-lualine/lualine.nvim',
@@ -58,8 +57,6 @@ return require('packer').startup(function(use)
 	  },
 	  tag = 'nightly' -- optional, updated every week. (see issue #1193)
 	}
-
-	use 'ten3roberts/window-picker.nvim'
 
 	use {
 		"windwp/nvim-autopairs",
@@ -95,6 +92,7 @@ return require('packer').startup(function(use)
   use "ruifm/gitlinker.nvim"
   use "mattn/vim-gist"
   use "pwntester/octo.nvim"
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
   use {
 	  "folke/todo-comments.nvim",
@@ -104,6 +102,7 @@ return require('packer').startup(function(use)
     }
 	  end
   }
+
   use {
 	  'phaazon/hop.nvim',
 	  branch = 'v2', -- optional but strongly recommended
@@ -111,14 +110,6 @@ return require('packer').startup(function(use)
 		 -- you can configure Hop the way you like here; see :h hop-config
 		 require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
 	  end
-	}
-
-	  use {
-  			"folke/which-key.nvim",
-  			config = function()
-	    	require("which-key").setup {
-    }
-  end
 	}
 
 end)

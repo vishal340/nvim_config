@@ -57,9 +57,10 @@ local lspkind = require('lspkind')
     mapping = cmp.mapping.preset.insert({
       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+		['<TAB>'] = cmp.mapping.select_next_item(),
+		['<S-TAB>'] = cmp.mapping.select_prev_item(),
+      ['<M-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
@@ -244,12 +245,6 @@ vim.keymap.set("n", "<leader>mn", require("nvim-tree.api").marks.navigate.next)
 vim.keymap.set("n", "<leader>mp", require("nvim-tree.api").marks.navigate.prev)
 vim.keymap.set("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select)
 
---window-picker
-
-vim.api.nvim_set_keymap('n', '<leader>ww', "WindowPick",opts)
-vim.api.nvim_set_keymap('n', '<leader>ws', "WindowSwap",opts)
-vim.api.nvim_set_keymap('n', '<leader>wq', "WindowZap",opts)
-
 --debug
 local dap = require('dap')
 dap.adapters.lldb = {
@@ -275,5 +270,4 @@ dap.configurations.cpp = {
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 
-require("dapui").setup()
 require('Comment').setup()
