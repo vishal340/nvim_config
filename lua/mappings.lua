@@ -11,10 +11,12 @@ keymap('i','<M-b>','<C-o>b',opts)
 keymap('i','<M-B>','<C-o>B',opts)
 keymap('i','<M-e>','<C-o>e',opts)
 keymap('i','<M-E>','<C-o>E',opts)
-keymap('i','<M-d>','<C-o>d',opts)
 keymap('i','<M-i>','<C-o>0',opts)
 keymap('i','<M-a>','<C-o>$',opts)
-
+keymap('i','<M-c>','<C-o>.',opts)
+keymap('i','<M-u>','<C-o>u',opts)
+keymap('i','<C-q>','<C-o>dh',opts)
+keymap('i','<C-w>','<C-o>dl',opts)
 
 require('lspsaga').init_lsp_saga()
 
