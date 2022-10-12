@@ -40,7 +40,7 @@ nmap <leader>cl :nohlsearch<cr>
 inoremap <F2> <C-r>
 
 nnoremap Y y$
-inoremap <F4> <C-o>
+inoremap <M-o> <C-o>
 inoremap <F5> <ESC>:w<cr>
 nnoremap <F5> :w<cr>
 inoremap <F6> <ESC>v

@@ -1,6 +1,21 @@
 local opts = { noremap=true, silent=true }
 local keymap = vim.keymap.set
 
+keymap('i','<M-h>','<C-o>h',opts)
+keymap('i','<M-j>','<C-o>j',opts)
+keymap('i','<M-k>','<C-o>k',opts)
+keymap('i','<M-l>','<C-o>l',opts)
+keymap('i','<M-w>','<C-o>w',opts)
+keymap('i','<M-W>','<C-o>W',opts)
+keymap('i','<M-b>','<C-o>b',opts)
+keymap('i','<M-B>','<C-o>B',opts)
+keymap('i','<M-e>','<C-o>e',opts)
+keymap('i','<M-E>','<C-o>E',opts)
+keymap('i','<M-d>','<C-o>d',opts)
+keymap('i','<M-i>','<C-o>0',opts)
+keymap('i','<M-a>','<C-o>$',opts)
+
+
 require('lspsaga').init_lsp_saga()
 
 keymap('n', '<leader>df', vim.diagnostic.open_float, opts)
@@ -27,7 +42,8 @@ local on_attach = function(client, bufnr)
   end, bufopts)
   keymap('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
   keymap('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-  keymap('n', 'gr', '<cmd>tab split| lua vim.lsp.buf.references()<cr>', bufopts)
+  keymap('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<cr>', bufopts)
+  keymap('n', '<leader>gtr', '<cmd>tab split| lua vim.lsp.buf.references()<cr>', bufopts)
   keymap('n', '<leader>bf', vim.lsp.buf.formatting, bufopts)
 
   --TODO add more features from lspsaga
@@ -152,10 +168,19 @@ keymap('n', '<leader>fb', '<cmd>lua require(\'telescope.builtin\').buffers()<cr>
 keymap('n', '<leader>fh', '<cmd>lua require(\'telescope.builtin\').help_tags()<cr>')
 
 --hop(find characters in file)
-vim.api.nvim_set_keymap('', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>", {})
-vim.api.nvim_set_keymap('', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>", {})
-vim.api.nvim_set_keymap('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>", {})
-vim.api.nvim_set_keymap('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>", {})
+keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>")
+keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>")
+keymap('n', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>")
+keymap('n', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>")
+keymap('i', '<M-f>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>")
+keymap('i', '<M-F>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>")
+keymap('i', '<M-t>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>")
+keymap('i', '<M-T>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>")
+
+keymap('n','sf','f',opts)
+keymap('n','sF','F',opts)
+keymap('n','st','t',opts)
+keymap('n','sT','T',opts)
 
 require'nvim-web-devicons'.setup {
  -- your personnal icons can go here (to override)
