@@ -19,7 +19,7 @@ set clipboard+=unnamedplus
 set timeout 
 set timeoutlen=1000 
 set ttimeoutlen=200
-set updatetime=100
+set updatetime=500
 set nobackup
 set nowritebackup
 set splitright

@@ -87,7 +87,12 @@ return require('packer').startup(function(use)
 	
 	use 'mhinz/vim-startify'
 	
-	use "lewis6991/gitsigns.nvim"
+	use {
+  		'lewis6991/gitsigns.nvim',
+	  	config = function()
+   		require('gitsigns').setup()
+  	end
+	}
 	use "tpope/vim-fugitive"
   use "ruifm/gitlinker.nvim"
   use "mattn/vim-gist"

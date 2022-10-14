@@ -1,3 +1,4 @@
+require('options')
 require('plugins')
 
 vim.cmd('source $HOME/.config/nvim/old_mappings.vim')
@@ -9,7 +10,6 @@ require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_vscode").lazy_load({paths = {"./~/.config/nvim/snippets"}})
 
 require('mappings')
-require('options')
 
 vim.cmd("highlight Normal guibg=NONE<cr>")
 vim.keymap.set('n',"<leader>bt",":highlight Normal guibg=NONE<cr>")

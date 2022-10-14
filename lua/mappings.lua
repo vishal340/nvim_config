@@ -1,22 +1,22 @@
 local opts = { noremap=true, silent=true }
 local keymap = vim.keymap.set
 
-keymap('i','<M-h>','<C-o>h',opts)
-keymap('i','<M-j>','<C-o>j',opts)
-keymap('i','<M-k>','<C-o>k',opts)
-keymap('i','<M-l>','<C-o>l',opts)
+keymap('i','<M-h>','<Left>',opts)
+keymap('i','<M-j>','<Down>',opts)
+keymap('i','<M-k>','<Up>',opts)
+keymap('i','<M-l>','<Right>',opts)
 keymap('i','<M-w>','<C-o>w',opts)
 keymap('i','<M-W>','<C-o>W',opts)
 keymap('i','<M-b>','<C-o>b',opts)
 keymap('i','<M-B>','<C-o>B',opts)
 keymap('i','<M-e>','<C-o>e',opts)
 keymap('i','<M-E>','<C-o>E',opts)
-keymap('i','<M-i>','<C-o>0',opts)
-keymap('i','<M-a>','<C-o>$',opts)
+keymap('i','<M-i>','<Home>',opts)
+keymap('i','<M-a>','<End>',opts)
 keymap('i','<M-c>','<C-o>.',opts)
 keymap('i','<M-u>','<C-o>u',opts)
-keymap('i','<C-q>','<C-o>dh',opts)
-keymap('i','<C-w>','<C-o>dl',opts)
+keymap('i','<C-q>','<BS>',opts)
+keymap('i','<C-w>','<Del>',opts)
 
 require('lspsaga').init_lsp_saga()
 
@@ -90,7 +90,7 @@ local lspkind = require('lspkind')
 	formatting = {
     format = lspkind.cmp_format({
       mode = 'symbol', -- show only symbol annotations
-      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      maxwidth = 80, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 
     })
   }
