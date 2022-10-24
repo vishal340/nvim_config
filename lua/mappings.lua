@@ -11,12 +11,14 @@ keymap('i','<M-b>','<C-o>b',opts)
 keymap('i','<M-B>','<C-o>B',opts)
 keymap('i','<M-e>','<C-o>e',opts)
 keymap('i','<M-E>','<C-o>E',opts)
-keymap('i','<M-i>','<Home>',opts)
+keymap('i','<M-i>','<C-o>I',opts)
 keymap('i','<M-a>','<End>',opts)
 keymap('i','<M-c>','<C-o>.',opts)
 keymap('i','<M-u>','<C-o>u',opts)
+keymap('i','<M-o>','<Home>',opts)
 keymap('i','<C-q>','<BS>',opts)
 keymap('i','<C-w>','<Del>',opts)
+keymap('i','<M-5>','<C-o>%',opts)
 
 require('lspsaga').init_lsp_saga()
 
@@ -52,7 +54,7 @@ local on_attach = function(client, bufnr)
   keymap("n", "<leader>lf", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
   keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
   keymap("v", "<leader>rca", "<cmd>Lspsaga range_code_action<CR>", { silent = true })
-  keymap("n", "<leader>pd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
+  keymap("n", "<leader>pd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
   keymap("n", "<leader>ld", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
   keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
   keymap("n", "<leader>hd", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
@@ -124,7 +126,7 @@ local lspkind = require('lspkind')
   })
 
   -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require('lspconfig')['pyright'].setup{
     on_attach = on_attach,
@@ -298,3 +300,13 @@ dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 
 require('Comment').setup()
+
+-- --browser-search
+-- -----------------
+-- require('browser').setup({
+-- 	provider = "duckduckgo"
+-- })
+--
+-- vim.keymap.set("n", "<leader>b", function()
+--   require("browse").input_search()
+-- end)
