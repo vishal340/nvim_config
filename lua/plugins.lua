@@ -48,6 +48,7 @@ return require('packer').startup(function(use)
 
 	use {
   		'nvim-telescope/telescope.nvim', branch = '0.1.x',
+		requires = { {'nvim-lua/plenary.nvim'} }
 	}
 
 	use {
@@ -116,9 +117,13 @@ return require('packer').startup(function(use)
 		 require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
 	  end
 	}
-	-- use({
-	--   "lalitmee/browse.nvim",
- --  		requires = { "nvim-telescope/telescope.nvim" },
-	-- })
+	use({
+	  "lalitmee/browse.nvim",
+	})
+	
+	use {'nvim-orgmode/orgmode', config = function()
+        require('orgmode').setup{}
+	end
+	}
 
 end)

@@ -87,7 +87,8 @@ local lspkind = require('lspkind')
       { name = 'luasnip' }, -- For luasnip users.
     }, {
       { name = 'buffer' },
-		{name = 'path'}
+		{name = 'path'},
+		{name = 'orgmode'},
     }),
 	formatting = {
     format = lspkind.cmp_format({
@@ -274,6 +275,24 @@ vim.keymap.set("n", "<leader>mn", require("nvim-tree.api").marks.navigate.next)
 vim.keymap.set("n", "<leader>mp", require("nvim-tree.api").marks.navigate.prev)
 vim.keymap.set("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select)
 
+-- Load custom tree-sitter grammar for org filetype
+require('orgmode').setup_ts_grammar()
+
+-- Tree-sitter configuration
+require'nvim-treesitter.configs'.setup {
+  -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = {'org'}, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
+  },
+  ensure_installed = {'org'}, -- Or run :TSUpdate org
+}
+
+require('orgmode').setup({
+  org_agenda_files = {'~/Dropbox/org/*', '~/my-orgs/**/*'},
+  org_default_notes_file = '~/Dropbox/org/refile.org',
+})
+
 --debug
 local dap = require('dap')
 dap.adapters.lldb = {
@@ -303,10 +322,10 @@ require('Comment').setup()
 
 -- --browser-search
 -- -----------------
--- require('browser').setup({
--- 	provider = "duckduckgo"
--- })
---
--- vim.keymap.set("n", "<leader>b", function()
---   require("browse").input_search()
--- end)
+require('browse').setup({
+	provider = "duckduckgo",
+})
+
+vim.keymap.set("n", "<leader>b", function()
+  require("browse").input_search()
+end)
