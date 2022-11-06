@@ -99,6 +99,7 @@ return require('packer').startup(function(use)
   use "mattn/vim-gist"
   use "pwntester/octo.nvim"
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+  use({"petertriho/cmp-git", requires = "nvim-lua/plenary.nvim"})
 
   use {
 	  "folke/todo-comments.nvim",
@@ -125,5 +126,5 @@ return require('packer').startup(function(use)
         require('orgmode').setup{}
 	end
 	}
-
+	use "ziontee113/neo-minimap"
 end)

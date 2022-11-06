@@ -26,6 +26,8 @@ keymap('n', '<leader>df', vim.diagnostic.open_float, opts)
 keymap('n', '<leader>dp', vim.diagnostic.goto_prev, opts)
 keymap('n', '<leader>dn', vim.diagnostic.goto_next, opts)
 keymap('n', '<leader>dl', vim.diagnostic.setloclist, opts)
+keymap('n', '<leader>dh', vim.diagnostic.hide, opts)
+keymap('n', '<leader>ds', vim.diagnostic.show, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -63,41 +65,43 @@ end
 local cmp = require'cmp'
 local lspkind = require('lspkind')
 
-  cmp.setup({
-    snippet = {
-      -- REQUIRED - you must specify a snippet engine
-      expand = function(args)
-      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-      end,
-    },
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-		['<TAB>'] = cmp.mapping.select_next_item(),
-		['<S-TAB>'] = cmp.mapping.select_prev_item(),
-      ['<M-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'luasnip' }, -- For luasnip users.
-    }, {
-      { name = 'buffer' },
-		{name = 'path'},
-		{name = 'orgmode'},
-    }),
-	formatting = {
-    format = lspkind.cmp_format({
-      mode = 'symbol', -- show only symbol annotations
-      maxwidth = 80, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+require("cmp_git").setup()
 
-    })
-  }
-  })
+cmp.setup({
+ snippet = {
+	-- REQUIRED - you must specify a snippet engine
+	expand = function(args)
+	require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+	end,
+ },
+ window = {
+	-- completion = cmp.config.window.bordered(),
+	-- documentation = cmp.config.window.bordered(),
+ },
+ mapping = cmp.mapping.preset.insert({
+	['<C-b>'] = cmp.mapping.scroll_docs(-4),
+	['<C-f>'] = cmp.mapping.scroll_docs(4),
+	['<TAB>'] = cmp.mapping.select_next_item(),
+	['<S-TAB>'] = cmp.mapping.select_prev_item(),
+	['<M-e>'] = cmp.mapping.abort(),
+	['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+ }),
+ sources = cmp.config.sources({
+	{ name = 'nvim_lsp' },
+	{ name = 'luasnip' }, -- For luasnip users.
+ }, {
+	{ name = 'buffer' },
+	{name = 'path'},
+	{name = 'orgmode'},
+ }),
+formatting = {
+ format = lspkind.cmp_format({
+	mode = 'symbol', -- show only symbol annotations
+	maxwidth = 80, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+
+ })
+}
+})
 
   -- Set configuration for specific filetype.
   cmp.setup.filetype('gitcommit', {
@@ -149,7 +153,7 @@ require('lspconfig')['rust_analyzer'].setup{
     }
 }
 
-require('lspconfig')['clangd'].setup{
+require('lspconfig').clangd.setup{
     on_attach = on_attach,
 	 capabilities = capabilities,
     flags = lsp_flags,
@@ -329,3 +333,7 @@ require('browse').setup({
 vim.keymap.set("n", "<leader>b", function()
   require("browse").input_search()
 end)
+
+--neo-minimap
+--------------------------
+local nm = require("neo-minimap")
