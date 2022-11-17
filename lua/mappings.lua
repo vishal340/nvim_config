@@ -337,3 +337,9 @@ end)
 --neo-minimap
 --------------------------
 local nm = require("neo-minimap")
+
+--sniprun
+--------------------------
+keymap("n","<leader>r",":SnipRun<cr>",opts)
+keymap("v","<leader>r",":'<,'>SnipRun<cr>",opts)
+vim.g.markdown_fenced_languages = { "cpp", "c","rust", "go","lua", "bash", "javascript", "typescript" }

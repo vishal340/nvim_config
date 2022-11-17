@@ -36,9 +36,10 @@ return require('packer').startup(function(use)
   		requires = { 'kyazdani42/nvim-web-devicons', opt = true }
 	}
 
-  use 'L3MON4D3/LuaSnip'
+  use {'L3MON4D3/LuaSnip', run = "make install_jsregexp"}
   use 'saadparwaiz1/cmp_luasnip'
   use "rafamadriz/friendly-snippets"
+  use { 'michaelb/sniprun', run = 'bash ./install.sh'}
 
    use {
         'nvim-treesitter/nvim-treesitter',
