@@ -16,19 +16,6 @@ return require('packer').startup(function(use)
 	use 'hrsh7th/cmp-cmdline'
 	use 'hrsh7th/nvim-cmp'
 
-	use({
-    "glepnir/lspsaga.nvim",
-    branch = "main",
-    config = function()
-        local saga = require("lspsaga")
-
-        saga.init_lsp_saga({
-            saga_winblend = 60,
-				max_preview_lines = 20,
-        })
-    end,
-	})
-
 	use 'mfussenegger/nvim-dap'
 
 	use {

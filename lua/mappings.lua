@@ -20,14 +20,7 @@ keymap('i','<C-q>','<BS>',opts)
 keymap('i','<C-w>','<Del>',opts)
 keymap('i','<M-5>','<C-o>%',opts)
 
-require('lspsaga').init_lsp_saga()
 
-keymap('n', '<leader>df', vim.diagnostic.open_float, opts)
-keymap('n', '<leader>dp', vim.diagnostic.goto_prev, opts)
-keymap('n', '<leader>dn', vim.diagnostic.goto_next, opts)
-keymap('n', '<leader>dl', vim.diagnostic.setloclist, opts)
-keymap('n', '<leader>dh', vim.diagnostic.hide, opts)
-keymap('n', '<leader>ds', vim.diagnostic.show, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -46,20 +39,17 @@ local on_attach = function(client, bufnr)
   keymap('n', '<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
-  keymap('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-  keymap('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+  keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', bufopts)
   keymap('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<cr>', bufopts)
   keymap('n', '<leader>gtr', '<cmd>tab split| lua vim.lsp.buf.references()<cr>', bufopts)
-  keymap('n', '<leader>bf', vim.lsp.buf.formatting, bufopts)
+  keymap('n', '<leader>bf', '<cmd>lua vim.lsp.buf.formatting<cr>', bufopts)
 
-  --TODO add more features from lspsaga
-  keymap("n", "<leader>lf", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
-  keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
-  keymap("v", "<leader>rca", "<cmd>Lspsaga range_code_action<CR>", { silent = true })
-  keymap("n", "<leader>pd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
-  keymap("n", "<leader>ld", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
-  keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
-  keymap("n", "<leader>hd", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
+	keymap('n', '<leader>df', vim.diagnostic.open_float, opts)
+	keymap('n', '<leader>dp', vim.diagnostic.goto_prev, opts)
+	keymap('n', '<leader>dn', vim.diagnostic.goto_next, opts)
+	keymap('n', '<leader>dl', vim.diagnostic.setloclist, opts)
+	keymap('n', '<leader>dh', vim.diagnostic.hide, opts)
+	keymap('n', '<leader>ds', vim.diagnostic.show, opts)
 end
 
 local cmp = require'cmp'
@@ -170,6 +160,14 @@ require('lspconfig')['gopls'].setup{
     flags = lsp_flags,
 }
 
+require('lspconfig')['asm_lsp'].setup{
+    on_attach = on_attach,
+	 capabilities = capabilities,
+    flags = lsp_flags,
+	 filetype = { "asm", "s", "S"},
+	 command = "asm-lsp"
+}
+
 --telescope
 keymap('n','<leader>ff', '<cmd>lua require(\'telescope.builtin\').find_files()<cr>')
 keymap('n', '<leader>fg', '<cmd>lua require(\'telescope.builtin\').live_grep()<cr>')
@@ -267,6 +265,11 @@ require("nvim-tree").setup({
   filters = {
     dotfiles = false,
   },
+})
+
+vim.api.nvim_create_autocmd('BufEnter', {
+    command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
+    nested = true,
 })
 
 local node=require("nvim-tree.api").marks.list()
