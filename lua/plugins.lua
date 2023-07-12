@@ -26,7 +26,7 @@ return require('packer').startup(function(use)
   use {'L3MON4D3/LuaSnip', run = "make install_jsregexp"}
   use 'saadparwaiz1/cmp_luasnip'
   use "rafamadriz/friendly-snippets"
-  use { 'michaelb/sniprun', run = 'bash ./install.sh'}
+  use { 'michaelb/sniprun', run = 'bash ./install.sh 1'}
 
    use {
         'nvim-treesitter/nvim-treesitter',

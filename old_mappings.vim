@@ -37,13 +37,8 @@ nmap gf :edit <cfile><cr>
 
 nmap <leader>z :set foldmethod<cr>
 nmap <leader>cl :nohlsearch<cr>
-inoremap <F2> <C-r>
 
 nnoremap Y y$
-inoremap <M-d> <C-o>
-inoremap <F5> <ESC>:w<cr>
-nnoremap <F5> :w<cr>
-inoremap <F6> <ESC>v
 
 nnoremap <leader><right> :vertical resize +5<cr>
 nnoremap <leader><left> :vertical resize -5<cr>
@@ -130,7 +125,7 @@ function! s:gitModified()
     return map(files, "{'line': v:val, 'path': v:val}")
 endfunction
 
-" same as above, but show untracked files, honouring .gitignore
+" " same as above, but show untracked files, honouring .gitignore
 function! s:gitUntracked()
     let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
     return map(files, "{'line': v:val, 'path': v:val}")
