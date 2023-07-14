@@ -98,6 +98,13 @@ return require('packer').startup(function(use)
 	  end
   }
 
+	use {
+		"Fildo7525/pretty_hover",
+		config = function()
+		require("pretty_hover").setup(options)
+	end
+	}
+
   use {
 	  'phaazon/hop.nvim',
 	  branch = 'v2', -- optional but strongly recommended

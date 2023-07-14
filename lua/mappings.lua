@@ -34,22 +34,19 @@ local on_attach = function(client, bufnr)
   keymap('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', bufopts)
   keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<cr>', bufopts)
   keymap('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', bufopts)
-  keymap('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  keymap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  keymap('n', '<leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
   keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', bufopts)
   keymap('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<cr>', bufopts)
   keymap('n', '<leader>gtr', '<cmd>tab split| lua vim.lsp.buf.references()<cr>', bufopts)
   keymap('n', '<leader>bf', '<cmd>lua vim.lsp.buf.formatting<cr>', bufopts)
 
-	keymap('n', '<leader>df', vim.diagnostic.open_float, opts)
-	keymap('n', '<leader>dp', vim.diagnostic.goto_prev, opts)
-	keymap('n', '<leader>dn', vim.diagnostic.goto_next, opts)
-	keymap('n', '<leader>dl', vim.diagnostic.setloclist, opts)
-	keymap('n', '<leader>dh', vim.diagnostic.hide, opts)
-	keymap('n', '<leader>ds', vim.diagnostic.show, opts)
+	keymap('n', '<leader>df', '<cmd>lua vim.diagnostic.open_float<cr>', opts)
+	keymap('n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_prev<cr>', opts)
+	keymap('n', '<leader>dn', '<cmd>lua vim.diagnostic.goto_next<cr>', opts)
+	keymap('n', '<leader>dl', '<cmd>lua vim.diagnostic.setloclist<cr>', opts)
+	keymap('n', '<leader>dh', '<cmd>lua vim.diagnostic.hide<cr>', opts)
+	keymap('n', '<leader>ds', '<cmd>lua vim.diagnostic.show<cr>', opts)
+	keymap('n', 'K', '<cmd>lua require("pretty_hover").hover()<cr>',opts)
+	keymap('n', '<leader>k', '<cmd>lua require("pretty_hover").close()<cr>',opts)
 end
 
 local cmp = require'cmp'
@@ -69,8 +66,8 @@ cmp.setup({
 	-- documentation = cmp.config.window.bordered(),
  },
  mapping = cmp.mapping.preset.insert({
-	['<C-b>'] = cmp.mapping.scroll_docs(-4),
-	['<C-f>'] = cmp.mapping.scroll_docs(4),
+	-- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+	-- ['<C-f>'] = cmp.mapping.scroll_docs(4),
 	['<TAB>'] = cmp.mapping.select_next_item(),
 	['<S-TAB>'] = cmp.mapping.select_prev_item(),
 	['<M-e>'] = cmp.mapping.abort(),
@@ -179,15 +176,15 @@ keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hin
 keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>")
 keymap('n', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>")
 keymap('n', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>")
-keymap('i', '<M-f>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>")
-keymap('i', '<M-F>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>")
-keymap('i', '<M-t>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>")
-keymap('i', '<M-T>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>")
+-- keymap('i', '<M-f>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>")
+-- keymap('i', '<M-F>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>")
+-- keymap('i', '<M-t>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>")
+-- keymap('i', '<M-T>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>")
 
-keymap('n','sf','f',opts)
-keymap('n','sF','F',opts)
-keymap('n','st','t',opts)
-keymap('n','sT','T',opts)
+keymap('i','<M-f>','<C-o>f',opts)
+keymap('i','<M-F>','<C-o>F',opts)
+keymap('i','<M-t>','<C-o>t',opts)
+keymap('i','<M-T>','<C-o>T',opts)
 
 require'nvim-web-devicons'.setup {
  -- your personnal icons can go here (to override)
