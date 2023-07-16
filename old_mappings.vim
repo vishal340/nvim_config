@@ -1,4 +1,3 @@
-nnoremap <leader><leader>s :source $HOME/.config/nvim/init.lua
 
 filetype on
 
@@ -32,6 +31,9 @@ set autochdir
 set completeopt=menu,menuone,noselect
 
 let mapleader = " "
+let maplocalleader ="\\"
+
+nnoremap <leader><leader>s :source ~/.config/nvim/init.lua<cr>
 
 nmap gf :edit <cfile><cr>
 

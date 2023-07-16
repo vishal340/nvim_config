@@ -185,15 +185,15 @@ keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hin
 keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>")
 keymap('n', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>")
 keymap('n', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>")
--- keymap('i', '<M-f>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>")
--- keymap('i', '<M-F>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>")
--- keymap('i', '<M-t>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>")
--- keymap('i', '<M-T>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>")
+keymap('i', '<M-f>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>")
+keymap('i', '<M-F>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>")
+keymap('i', '<M-t>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>")
+keymap('i', '<M-T>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>")
 
-keymap('i','<M-f>','<C-o>f',opts)
-keymap('i','<M-F>','<C-o>F',opts)
-keymap('i','<M-t>','<C-o>t',opts)
-keymap('i','<M-T>','<C-o>T',opts)
+-- keymap('i','<M-f>','<C-o>f',opts)
+-- keymap('i','<M-F>','<C-o>F',opts)
+-- keymap('i','<M-t>','<C-o>t',opts)
+-- keymap('i','<M-T>','<C-o>T',opts)
 keymap('n','<M-f>','f',opts)
 keymap('n','<M-F>','F',opts)
 keymap('n','<M-t>','t',opts)
@@ -343,9 +343,7 @@ require('browse').setup({
 	provider = "duckduckgo",
 })
 
-keymap("n", "<leader>b", function()
-  require("browse").input_search()
-end, opts)
+keymap("n", "<leader>b","<cmd>lua require('browse').input_search()<cr>", opts)
 
 --sniprun
 --------------------------

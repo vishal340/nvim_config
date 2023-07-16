@@ -121,6 +121,7 @@ return require('packer').startup(function(use)
 	}
 	use({
 	  "lalitmee/browse.nvim",
+	  requires = { "nvim-telescope/telescope.nvim" },
 	})
 	
 	use {'nvim-orgmode/orgmode', config = function()
