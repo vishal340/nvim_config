@@ -194,10 +194,10 @@ keymap('i', '<M-T>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = requir
 -- keymap('i','<M-F>','<C-o>F',opts)
 -- keymap('i','<M-t>','<C-o>t',opts)
 -- keymap('i','<M-T>','<C-o>T',opts)
-keymap('n','<M-f>','f',opts)
-keymap('n','<M-F>','F',opts)
-keymap('n','<M-t>','t',opts)
-keymap('n','<M-T>','T',opts)
+keymap('n','<localleader>f','f',opts)
+keymap('n','<localleader>F','F',opts)
+keymap('n','<localleader>t','t',opts)
+keymap('n','<localleader>T','T',opts)
 
 require'nvim-web-devicons'.setup {
  -- your personnal icons can go here (to override)
@@ -341,9 +341,27 @@ require('Comment').setup()
 -- -----------------
 require('browse').setup({
 	provider = "duckduckgo",
+	bookmarks = {
+		"https://devdocs.io/%s",
+		["github"] = {
+			["code_search"] = "https://github.com/search?q=%s&type=code",
+			["repo_search"] = "https://github.com/search?q=%s&type=repositories",
+			["issues_search"] = "https://github.com/search?q=%s&type=issues",
+			["pulls_search"] = "https://github.com/search?q=%s&type=pullrequests",
+  		},
+		["node"] ={
+			["npm_doc"] = "https://docs.npmjs.com/",
+		},
+		["cpp"] ={
+			["cppreference"] = "https://duckduckgo.com/?sites=cppreference.com&q=%s&atb=v341-1&ia=web",
+			["cplusplus"] = "https://cplusplus.com/search.do?q=%s",
+		},
+	},
 })
 
 keymap("n", "<leader>b","<cmd>lua require('browse').input_search()<cr>", opts)
+keymap("n", "<localleader>b","<cmd>lua require('browse').browse(bookmarks)<cr>", opts)
+keymap("n", "<localleader>bd","<cmd>lua require('browse.devdocs').search_with_filetype()<cr>", opts)
 
 --sniprun
 --------------------------
