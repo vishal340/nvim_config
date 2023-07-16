@@ -5,9 +5,15 @@ return require('packer').startup(function(use)
   use "williamboman/mason.nvim"
   use "williamboman/mason-lspconfig.nvim"
   use "onsails/lspkind.nvim"
-  use "jose-elias-alvarez/null-ls.nvim"
   use "mfussenegger/nvim-lint"
   use "nvim-lua/plenary.nvim"
+	use {
+    	"jose-elias-alvarez/null-ls.nvim",
+    	config = function()
+      	require("null-ls").setup()
+    	end,
+    	requires = { "nvim-lua/plenary.nvim" },
+	}
 	use "kyazdani42/nvim-web-devicons"
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
   use 'hrsh7th/cmp-nvim-lsp'
@@ -121,5 +127,4 @@ return require('packer').startup(function(use)
         require('orgmode').setup{}
 	end
 	}
-	use "ziontee113/neo-minimap"
 end)

@@ -21,6 +21,15 @@ keymap('i','<C-w>','<Del>',opts)
 keymap('i','<M-5>','<C-o>%',opts)
 
 
+-- local null_ls = require("null-ls")
+
+-- register any number of sources simultaneously
+-- local null_sources = {
+--     null_ls.builtins.formatting.prettier,
+--     null_ls.builtins.diagnostics.write_good,
+--     null_ls.builtins.code_actions.gitsigns,
+-- }
+-- null_ls.setup({ sources = null_sources })
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -37,14 +46,14 @@ local on_attach = function(client, bufnr)
   keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', bufopts)
   keymap('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<cr>', bufopts)
   keymap('n', '<leader>gtr', '<cmd>tab split| lua vim.lsp.buf.references()<cr>', bufopts)
-  keymap('n', '<leader>bf', '<cmd>lua vim.lsp.buf.formatting<cr>', bufopts)
+  keymap('n', '<leader>bf', '<cmd>lua vim.lsp.buf.formatting()<cr>', bufopts)
 
-	keymap('n', '<leader>df', '<cmd>lua vim.diagnostic.open_float<cr>', opts)
-	keymap('n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_prev<cr>', opts)
-	keymap('n', '<leader>dn', '<cmd>lua vim.diagnostic.goto_next<cr>', opts)
-	keymap('n', '<leader>dl', '<cmd>lua vim.diagnostic.setloclist<cr>', opts)
-	keymap('n', '<leader>dh', '<cmd>lua vim.diagnostic.hide<cr>', opts)
-	keymap('n', '<leader>ds', '<cmd>lua vim.diagnostic.show<cr>', opts)
+	keymap('n', '<leader>df', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
+	keymap('n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
+	keymap('n', '<leader>dn', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
+	keymap('n', '<leader>dl', '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
+	keymap('n', '<leader>dh', '<cmd>lua vim.diagnostic.hide()<cr>', opts)
+	keymap('n', '<leader>ds', '<cmd>lua vim.diagnostic.show()<cr>', opts)
 	keymap('n', 'K', '<cmd>lua require("pretty_hover").hover()<cr>',opts)
 	keymap('n', '<leader>k', '<cmd>lua require("pretty_hover").close()<cr>',opts)
 end
@@ -185,6 +194,10 @@ keymap('i','<M-f>','<C-o>f',opts)
 keymap('i','<M-F>','<C-o>F',opts)
 keymap('i','<M-t>','<C-o>t',opts)
 keymap('i','<M-T>','<C-o>T',opts)
+keymap('n','<M-f>','f',opts)
+keymap('n','<M-F>','F',opts)
+keymap('n','<M-t>','t',opts)
+keymap('n','<M-T>','T',opts)
 
 require'nvim-web-devicons'.setup {
  -- your personnal icons can go here (to override)
@@ -330,13 +343,9 @@ require('browse').setup({
 	provider = "duckduckgo",
 })
 
-vim.keymap.set("n", "<leader>b", function()
+keymap("n", "<leader>b", function()
   require("browse").input_search()
-end)
-
---neo-minimap
---------------------------
-local nm = require("neo-minimap")
+end, opts)
 
 --sniprun
 --------------------------
