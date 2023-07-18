@@ -75,8 +75,6 @@ cmp.setup({
 	-- documentation = cmp.config.window.bordered(),
  },
  mapping = cmp.mapping.preset.insert({
-	-- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-	-- ['<C-f>'] = cmp.mapping.scroll_docs(4),
 	['<TAB>'] = cmp.mapping.select_next_item(),
 	['<S-TAB>'] = cmp.mapping.select_prev_item(),
 	['<M-e>'] = cmp.mapping.abort(),
@@ -238,7 +236,6 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
@@ -368,3 +365,7 @@ keymap("n", "<localleader>bd","<cmd>lua require('browse.devdocs').search_with_fi
 keymap("n","<leader>r",":SnipRun<cr>",opts)
 keymap("v","<leader>r",":'<,'>SnipRun<cr>",opts)
 vim.g.markdown_fenced_languages = { "cpp", "c","rust", "go","lua", "bash", "javascript", "typescript" }
+
+--which-key
+-------------------------
+require("which-key").register({prefix = {"leader", "localleader"}})

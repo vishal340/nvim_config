@@ -5,15 +5,15 @@ return require('packer').startup(function(use)
   use "williamboman/mason.nvim"
   use "williamboman/mason-lspconfig.nvim"
   use "onsails/lspkind.nvim"
-  use "mfussenegger/nvim-lint"
+  -- use "mfussenegger/nvim-lint"
   use "nvim-lua/plenary.nvim"
-	use {
-    	"jose-elias-alvarez/null-ls.nvim",
-    	config = function()
-      	require("null-ls").setup()
-    	end,
-    	requires = { "nvim-lua/plenary.nvim" },
-	}
+	-- use {
+ --    	"jose-elias-alvarez/null-ls.nvim",
+ --    	config = function()
+ --      	require("null-ls").setup()
+ --    	end,
+ --    	requires = { "nvim-lua/plenary.nvim" },
+	-- }
 	use "kyazdani42/nvim-web-devicons"
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
   use 'hrsh7th/cmp-nvim-lsp'
@@ -89,20 +89,23 @@ return require('packer').startup(function(use)
   	end
 	}
 	use "tpope/vim-fugitive"
-  use "ruifm/gitlinker.nvim"
-  use "mattn/vim-gist"
-  use "pwntester/octo.nvim"
+	use {
+    'ruifm/gitlinker.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+	}
+	use {
+  'pwntester/octo.nvim',
+  requires = {
+	  'nvim-lua/plenary.nvim',
+     'nvim-telescope/telescope.nvim',
+     'nvim-tree/nvim-web-devicons',
+   },
+  	config = function ()
+   	require"octo".setup()
+  	end
+	}
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use({"petertriho/cmp-git", requires = "nvim-lua/plenary.nvim"})
-
-  use {
-	  "folke/todo-comments.nvim",
-	  requires = "nvim-lua/plenary.nvim",
-	  config = function()
-		 require("todo-comments").setup {
-    }
-	  end
-  }
 
 	use {
 		"Fildo7525/pretty_hover",
@@ -128,4 +131,11 @@ return require('packer').startup(function(use)
         require('orgmode').setup{}
 	end
 	}
+	use {
+  "folke/which-key.nvim",
+  config = function()
+    require("which-key").setup {}
+  end
+	}
+
 end)
