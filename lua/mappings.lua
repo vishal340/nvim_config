@@ -63,6 +63,19 @@ local lspkind = require('lspkind')
 
 require("cmp_git").setup()
 
+require("gist").setup({
+	  private = false, -- All gists will be private, you won't be prompted again
+	  clipboard = "+", -- The registry to use for copying the Gist URL
+	  list = {
+			-- If there are multiple files in a gist you can scroll them,
+			-- with vim-like bindings n/p next previous
+			mappings = {
+				 next_file = "<TAB>",
+				 prev_file = "<S-TAB>"
+			}
+	  }
+ })
+
 cmp.setup({
  snippet = {
 	-- REQUIRED - you must specify a snippet engine

@@ -104,6 +104,13 @@ return require('packer').startup(function(use)
    	require"octo".setup()
   	end
 	}
+	use {
+  	"rawnly/gist.nvim",
+  	config = function() require("gist").setup() end,
+  	-- `GistsList` opens the selected gif in a terminal buffer,
+  	-- this plugin uses neovim remote rpc functionality to open the gist in an actual buffer and not have buffer inception
+  	requires = { "samjwill/nvim-unception", setup = function() vim.g.unception_block_while_host_edits = true end }
+	}
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use({"petertriho/cmp-git", requires = "nvim-lua/plenary.nvim"})
 
