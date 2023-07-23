@@ -5,15 +5,8 @@ return require('packer').startup(function(use)
   use "williamboman/mason.nvim"
   use "williamboman/mason-lspconfig.nvim"
   use "onsails/lspkind.nvim"
-  -- use "mfussenegger/nvim-lint"
+  use "mfussenegger/nvim-lint"
   use "nvim-lua/plenary.nvim"
-	-- use {
- --    	"jose-elias-alvarez/null-ls.nvim",
- --    	config = function()
- --      	require("null-ls").setup()
- --    	end,
- --    	requires = { "nvim-lua/plenary.nvim" },
-	-- }
 	use "kyazdani42/nvim-web-devicons"
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
   use 'hrsh7th/cmp-nvim-lsp'
@@ -23,6 +16,8 @@ return require('packer').startup(function(use)
 	use 'hrsh7th/nvim-cmp'
 
 	use 'mfussenegger/nvim-dap'
+	use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+	use 'folke/neodev.nvim'
 
 	use {
   		'nvim-lualine/lualine.nvim',
@@ -62,7 +57,9 @@ return require('packer').startup(function(use)
 	use {
   		"ur4ltz/surround.nvim",
 		config = function()
-    		require"surround".setup {mappings_style = "surround"}
+    		require"surround".setup {
+				mappings_style = "surround",
+		}
   		end
 	}
 	

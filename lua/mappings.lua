@@ -20,16 +20,7 @@ keymap('i','<C-q>','<BS>',opts)
 keymap('i','<C-w>','<Del>',opts)
 keymap('i','<M-5>','<C-o>%',opts)
 
-
--- local null_ls = require("null-ls")
-
--- register any number of sources simultaneously
--- local null_sources = {
---     null_ls.builtins.formatting.prettier,
---     null_ls.builtins.diagnostics.write_good,
---     null_ls.builtins.code_actions.gitsigns,
--- }
--- null_ls.setup({ sources = null_sources })
+vim.cmd('source $HOME/.config/nvim/lua/config/*.lua')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -40,12 +31,15 @@ local on_attach = function(client, bufnr)
   keymap('n', '<leader>gtD', '<cmd>tab split| lua vim.lsp.buf.declaration()<cr>', bufopts)
   keymap('n', '<leader>gtd', '<cmd>tab split| lua vim.lsp.buf.definition()<cr>', bufopts)
   keymap('n', '<leader>gti', '<cmd>tab split| lua vim.lsp.buf.implementation()<cr>', bufopts)
+	keymap('n', '<leader>gi', function()
+	  require("telescope.builtin").lsp_implementations()
+		end, bufopts)
   keymap('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', bufopts)
   keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<cr>', bufopts)
-  keymap('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', bufopts)
   keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', bufopts)
-  keymap('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<cr>', bufopts)
-  keymap('n', '<leader>gtr', '<cmd>tab split| lua vim.lsp.buf.references()<cr>', bufopts)
+  keymap('n', '<leader>gr', function()
+	  require("telescope.builtin").lsp_references()
+	  end, bufopts)
   keymap('n', '<leader>bf', '<cmd>lua vim.lsp.buf.formatting()<cr>', bufopts)
 
 	keymap('n', '<leader>df', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
@@ -90,6 +84,8 @@ cmp.setup({
  mapping = cmp.mapping.preset.insert({
 	['<TAB>'] = cmp.mapping.select_next_item(),
 	['<S-TAB>'] = cmp.mapping.select_prev_item(),
+	['<C-b>'] = cmp.mapping.scroll_docs(-4),
+	['<C-f>'] = cmp.mapping.scroll_docs(4),
 	['<M-e>'] = cmp.mapping.abort(),
 	['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
  }),
@@ -140,56 +136,80 @@ formatting = {
   -- Set up lspconfig.
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-require('lspconfig')['pyright'].setup{
+local lspconfig= require('lspconfig')
+
+lspconfig['pyright'].setup{
     on_attach = on_attach,
 	 capabilities = capabilities,
-    flags = lsp_flags,
 }
-require('lspconfig')['tsserver'].setup{
+lspconfig['tsserver'].setup{
     on_attach = on_attach,
 	 capabilities = capabilities,
-    flags = lsp_flags,
 }
-require('lspconfig')['rust_analyzer'].setup{
+lspconfig['rust_analyzer'].setup{
     on_attach = on_attach,
 	 capabilities = capabilities,
-    flags = lsp_flags,
     -- Server-specific settings...
     settings = {
       ["rust-analyzer"] = {}
     }
 }
 
-require('lspconfig').clangd.setup{
+lspconfig.clangd.setup{
     on_attach = on_attach,
 	 capabilities = capabilities,
-    flags = lsp_flags,
 }
 
-require('lspconfig')['jdtls'].setup{
+lspconfig['jdtls'].setup{
     on_attach = on_attach,
 	 capabilities = capabilities,
-    flags = lsp_flags,
 }
-require('lspconfig')['gopls'].setup{
+lspconfig['gopls'].setup{
     on_attach = on_attach,
 	 capabilities = capabilities,
-    flags = lsp_flags,
 }
 
-require('lspconfig')['asm_lsp'].setup{
+lspconfig['asm_lsp'].setup{
     on_attach = on_attach,
 	 capabilities = capabilities,
-    flags = lsp_flags,
 	 filetype = { "asm", "s", "S"},
 	 command = "asm-lsp"
 }
 
---telescope
-keymap('n','<leader>ff', '<cmd>lua require(\'telescope.builtin\').find_files()<cr>')
-keymap('n', '<leader>fg', '<cmd>lua require(\'telescope.builtin\').live_grep()<cr>')
-keymap('n', '<leader>fb', '<cmd>lua require(\'telescope.builtin\').buffers()<cr>')
-keymap('n', '<leader>fh', '<cmd>lua require(\'telescope.builtin\').help_tags()<cr>')
+lspconfig.lua_ls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+		 runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+		  checkThirdParty = false,
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+      completion = {
+        callSnippet = "Replace"
+      }
+    }
+  }
+})
+
+lspconfig.eslint.setup{
+    on_attach = on_attach,
+	 capabilities = capabilities,
+}
+
 
 --hop(find characters in file)
 keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>")
@@ -345,6 +365,16 @@ dap.configurations.cpp = {
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 
+require("dapui").setup()
+keymap('n', '<localleader>do',':lua require("dapui").open()<cr>', opts)
+keymap('n', '<localleader>dc',':lua require("dapui").close()<cr>', opts)
+keymap('n', '<localleader>dt',':lua require("dapui").toggle()<cr>', opts)
+keymap('n', '<localleader>df',':lua require("dapui").float_element(<element ID>, <optional settings>)', opts)
+
+require("neodev").setup({
+  library = { plugins = { "nvim-dap-ui" }, types = true },
+})
+
 require('Comment').setup()
 
 -- --browser-search
@@ -363,7 +393,7 @@ require('browse').setup({
 			["npm_doc"] = "https://docs.npmjs.com/",
 		},
 		["cpp"] ={
-			["cppreference"] = "https://duckduckgo.com/?sites=cppreference.com&q=%s&atb=v341-1&ia=web",
+			["cppreference"] = "https://en.cppreference.com/mwiki/index.php?search=%s",
 			["cplusplus"] = "https://cplusplus.com/search.do?q=%s",
 		},
 	},
