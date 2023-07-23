@@ -1,6 +1,7 @@
 
 filetype on
 
+set encoding=utf-8
 set mouse=a
 set tabstop=3
 set shiftwidth=3
@@ -33,7 +34,7 @@ set completeopt=menu,menuone,noselect
 let mapleader = " "
 let maplocalleader ="\\"
 
-nnoremap <leader><leader>s :source ~/.config/nvim/init.lua<cr>
+nnoremap <localleader>s :source ~/.config/nvim/init.lua<cr>
 
 nmap gf :edit <cfile><cr>
 
@@ -47,7 +48,7 @@ nnoremap <leader><left> :vertical resize -5<cr>
 nnoremap <leader><up> :resize +2<cr>
 nnoremap <leader><down> :resize -2<cr>
 nnoremap <silent><leader>t :let $VIM_DIR=expand('%:p:h')<cr> :40vs <bar> terminal<cr>i cd $VIM_DIR<cr>
-nnoremap <silent><leader><C-t> :let $VIM_DIR=expand('%:p:h')<cr> :10sp <bar> terminal<cr>i cd $VIM_DIR<cr>
+nnoremap <silent><localleader>t :let $VIM_DIR=expand('%:p:h')<cr> :10sp <bar> terminal<cr>i cd $VIM_DIR<cr>
 nmap <leader><tab> :tabnew<space>
 
 nnoremap <C-h> <C-w>h

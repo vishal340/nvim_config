@@ -76,9 +76,7 @@ return require('packer').startup(function(use)
     ft = "markdown",
   }
 	use "mfussenegger/nvim-jdtls"
-	
 	use 'mhinz/vim-startify'
-	
 	use {
   		'lewis6991/gitsigns.nvim',
 	  	config = function()
