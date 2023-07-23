@@ -9,6 +9,12 @@ return require('packer').startup(function(use)
   use "nvim-lua/plenary.nvim"
 	use "kyazdani42/nvim-web-devicons"
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
+  use({
+	  "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+	  config = function()
+		  require("lsp_lines").setup()
+	  end,
+  })
   use 'hrsh7th/cmp-nvim-lsp'
 	use 'hrsh7th/cmp-buffer'
 	use 'hrsh7th/cmp-path'
