@@ -220,7 +220,7 @@ vim.keymap.set("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select
 require('orgmode').setup_ts_grammar()
 
 -- Tree-sitter configuration
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
   -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
   highlight = {
     enable = true,
@@ -236,6 +236,7 @@ require('orgmode').setup({
 
 --debug
 local dap = require('dap')
+require("dapui").setup()
 dap.adapters.lldb = {
     type = 'executable',
     command = '/usr/bin/lldb-vscode-14', -- adjust as needed
@@ -259,11 +260,29 @@ dap.configurations.cpp = {
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 
-require("dapui").setup()
-keymap('n', '<localleader>do',':lua require("dapui").open()<cr>', opts)
-keymap('n', '<localleader>dc',':lua require("dapui").close()<cr>', opts)
+keymap('n', '<localleader>dc', function() require('dap').continue() end ,opts)
+keymap('n', '<localleader>ds', function() require('dap').step_over() end ,opts)
+keymap('n', '<localleader>dsi', function() require('dap').step_into() end ,opts)
+keymap('n', '<localleader>dso', function() require('dap').step_out() end ,opts)
+keymap('n', '<localleader>db', function() require('dap').toggle_breakpoint() end ,opts)
+keymap('n', '<localleader>dr', function() require('dap').repl.open() end ,opts)
+keymap('n', '<localleader>dl', function() require('dap').run_last() end ,opts)
+keymap({'n', 'v'}, '<localleader>dh', function()
+	require('dap.ui.widgets').hover()
+ end ,opts)
+keymap({'n', 'v'}, '<localleader>dp', function()
+	require('dap.ui.widgets').preview()
+ end ,opts)
+keymap('n', '<localleader>df', function()
+	local widgets = require('dap.ui.widgets')
+	widgets.centered_float(widgets.frames)
+ end ,opts)
+keymap('n', '<localleader>dfs', function()
+	local widgets = require('dap.ui.widgets')
+	widgets.centered_float(widgets.scopes)
+ end ,opts)
+
 keymap('n', '<localleader>dt',':lua require("dapui").toggle()<cr>', opts)
-keymap('n', '<localleader>df',':lua require("dapui").float_element(<element ID>, <optional settings>)', opts)
 
 require("neodev").setup({
   library = { plugins = { "nvim-dap-ui" }, types = true },

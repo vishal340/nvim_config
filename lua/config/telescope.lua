@@ -176,6 +176,7 @@ end
 
 keymap('n', '<leader>ff', ':Telescope find_files no_ignore=false<cr>')
 keymap('n', '<leader>fg', ':Telescope live_grep preview=true<cr>')
+keymap('n', '<leader>fm', ':Telescope marks preview=true<cr>')
 keymap('n', '<leader>fb', ':Telescope buffers<cr>')
 keymap('n', '<leader>fh', ':Telescope help_tags preview=true<cr>')
 keymap('n', '<leader>fo', ':Telescope oldfiles preview=false<cr>')

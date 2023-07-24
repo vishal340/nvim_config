@@ -24,12 +24,20 @@ local on_attach = function(client, bufnr)
   keymap('n', '<leader>ll', function()
 	  require("telescope.builtin").treesitter()
 	  end, bufopts)
+  keymap('n', '<leader>ic', function()
+	  require("telescope.builtin").lsp_incoming_calls()
+	  end, bufopts)
+  keymap('n', '<leader>oc', function()
+	  require("telescope.builtin").lsp_outgoing_calls()
+	  end, bufopts)
   keymap('n', '<leader>bf', '<cmd>lua vim.lsp.buf.formatting()<cr>', bufopts)
 
 	keymap('n', '<leader>df', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
 	keymap('n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
 	keymap('n', '<leader>dn', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
-	keymap('n', '<leader>dl', '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
+	keymap('n', '<leader>dl',function()
+		require("telescope.builtin").diagnostics()
+	end, opts)
 	keymap('n', '<leader>dh', '<cmd>lua vim.diagnostic.hide()<cr>', opts)
 	keymap('n', '<leader>ds', '<cmd>lua vim.diagnostic.show()<cr>', opts)
 	keymap('n', 'K', '<cmd>lua require("pretty_hover").hover()<cr>',opts)
@@ -62,13 +70,10 @@ lspconfig.clangd.setup{
 	 capabilities = capabilities,
 }
 
-lspconfig['jdtls'].setup{
-    on_attach = on_attach,
-	 capabilities = capabilities,
-}
 lspconfig['gopls'].setup{
     on_attach = on_attach,
 	 capabilities = capabilities,
+	 cmd = { 'jdtls' },
 }
 
 lspconfig['asm_lsp'].setup{
