@@ -134,7 +134,6 @@ return require('packer').startup(function(use)
 	  "lalitmee/browse.nvim",
 	  requires = { "nvim-telescope/telescope.nvim" },
 	})
-	
 	use {'nvim-orgmode/orgmode', config = function()
         require('orgmode').setup{}
 	end
@@ -144,6 +143,50 @@ return require('packer').startup(function(use)
   config = function()
     require("which-key").setup {}
   end
+	}
+
+	use {
+    "smoka7/multicursors.nvim",
+    dependencies = {
+        'nvim-treesitter/nvim-treesitter',
+        'smoka7/hydra.nvim',
+    },
+    opts = function()
+        local N = require 'multicursors.normal_mode'
+        local I = require 'multicursors.insert_mode'
+        return {
+            normal_keys = {
+                -- to change default lhs of key mapping change the key
+                [','] = {
+                    -- assigning nil to method exits from multi cursor mode
+                    method = N.clear_others,
+                    -- you can pass :map-arguments here
+                    opts = { desc = 'Clear others' },
+                },
+            },
+            insert_keys = {
+                -- to change default lhs of key mapping change the key
+                ['<CR>'] = {
+                    -- assigning nil to method exits from multi cursor mode
+                    method = I.CR_method(),
+                    -- you can pass :map-arguments here
+                    opts = { desc = 'New line' },
+                },
+            },
+        }
+    end,
+	}
+	use {
+		"RutaTang/quicknote.nvim",
+		dependencies = { "nvim-lua/plenary.nvim"},
+		config=function()
+			require("quicknote").setup({
+				mode = "portable", -- "portable" | "resident", default to "portable"
+            sign = "N", -- This is used for the signs on the left side (refer to ShowNoteSigns() api).
+                       -- You can change it to whatever you want (eg. some nerd fonts icon), 'N' is default
+            filetype = "md",
+			})
+  		end,
 	}
 
 end)

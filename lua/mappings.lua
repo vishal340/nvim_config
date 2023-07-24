@@ -226,7 +226,7 @@ require('nvim-treesitter.configs').setup {
     enable = true,
     additional_vim_regex_highlighting = {'org'}, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
   },
-  ensure_installed = {'org'}, -- Or run :TSUpdate org
+  ensure_installed = {'org', 'rust', 'toml'}, -- Or run :TSUpdate org
 }
 
 require('orgmode').setup({
@@ -325,3 +325,10 @@ vim.g.markdown_fenced_languages = { "cpp", "c","rust", "go","lua", "bash", "java
 --which-key
 -------------------------
 require("which-key").register({prefix = {"leader", "localleader"}})
+
+--quicknote
+-------------------------
+keymap("n","<localleader>qn", ":lua require('quicknote').NewNoteAtCurrentLine()<cr>",opts)
+keymap("n","<localleader>qs", ":lua require('quicknote').ShowNoteSigns()<cr>",opts)
+keymap("n","<localleader>qe", "require('quicknote').OpenNoteAtCurrentLine()<cr>",opts)
+
