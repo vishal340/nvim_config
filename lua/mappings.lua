@@ -22,6 +22,7 @@ keymap('i','<M-5>','<C-o>%',opts)
 
 vim.cmd('source $HOME/.config/nvim/lua/config/telescope.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/lspconfig.lua')
+vim.cmd('source $HOME/.config/nvim/lua/config/nvim_tree.lua')
 
 local cmp = require'cmp'
 local lspkind = require('lspkind')
@@ -181,40 +182,8 @@ require('lualine').setup {
   extensions = {}
 }
 
---nvim-tree
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  open_on_tab = true,
-  view = {
-    adaptive_size = true,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-      },
-    },
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = false,
-  },
-})
-
-vim.api.nvim_create_autocmd('BufEnter', {
-    command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
-    nested = true,
-})
-
-local node=require("nvim-tree.api").marks.list()
-require("nvim-tree.api").marks.toggle(node)
-
 keymap('n','<leader>e','<cmd>NvimTreeToggle<cr>',opts)
 keymap('n','<leader>ef','<cmd>NvimTreeFocus<cr>',opts)
-
-vim.keymap.set("n", "<leader>mn", require("nvim-tree.api").marks.navigate.next)
-vim.keymap.set("n", "<leader>mp", require("nvim-tree.api").marks.navigate.prev)
-vim.keymap.set("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select)
 
 -- Load custom tree-sitter grammar for org filetype
 require('orgmode').setup_ts_grammar()
