@@ -16,9 +16,6 @@ keymap('i','<M-a>','<End>',opts)
 keymap('i','<M-c>','<C-o>.',opts)
 keymap('i','<M-u>','<C-o>u',opts)
 keymap('i','<M-o>','<Home>',opts)
-keymap('i','<C-q>','<BS>',opts)
-keymap('i','<C-w>','<Del>',opts)
-keymap('i','<M-5>','<C-o>%',opts)
 
 vim.cmd('source $HOME/.config/nvim/lua/config/telescope.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/lspconfig.lua')
@@ -164,13 +161,13 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_x = {'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
   inactive_sections = {
     lualine_a = {},
-    lualine_b = {},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
     lualine_c = {'filename'},
     lualine_x = {'location'},
     lualine_y = {},
@@ -230,7 +227,7 @@ dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 
 keymap('n', '<localleader>dc', function() require('dap').continue() end ,opts)
-keymap('n', '<localleader>ds', function() require('dap').step_over() end ,opts)
+keymap('n', '<localleader>dsv', function() require('dap').step_over() end ,opts)
 keymap('n', '<localleader>dsi', function() require('dap').step_into() end ,opts)
 keymap('n', '<localleader>dso', function() require('dap').step_out() end ,opts)
 keymap('n', '<localleader>db', function() require('dap').toggle_breakpoint() end ,opts)
@@ -252,6 +249,7 @@ keymap('n', '<localleader>dfs', function()
  end ,opts)
 
 keymap('n', '<localleader>dt',':lua require("dapui").toggle()<cr>', opts)
+keymap('v', '<localleader>de', ':lua require("dapui").eval()<cr>', opts)
 
 require("neodev").setup({
   library = { plugins = { "nvim-dap-ui" }, types = true },
@@ -272,7 +270,7 @@ require('browse').setup({
 			["pulls_search"] = "https://github.com/search?q=%s&type=pullrequests",
   		},
 		["node"] ={
-			["npm_doc"] = "https://docs.npmjs.com/",
+			["npm_doc"] = "https://docs.npmjs.com/searcch?q=%s",
 		},
 		["cpp"] ={
 			["cppreference"] = "https://en.cppreference.com/mwiki/index.php?search=%s",
