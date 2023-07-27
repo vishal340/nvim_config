@@ -68,7 +68,6 @@ return require('packer').startup(function(use)
 		}
   		end
 	}
-	
 	use {
     'numToStr/Comment.nvim',
     config = function()
@@ -189,4 +188,5 @@ return require('packer').startup(function(use)
   		end,
 	}
 
+	use 'nvim-pack/nvim-spectre'
 end)

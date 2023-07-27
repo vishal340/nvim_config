@@ -299,3 +299,13 @@ keymap("n","<localleader>qn", ":lua require('quicknote').NewNoteAtCurrentLine()<
 keymap("n","<localleader>qs", ":lua require('quicknote').ShowNoteSigns()<cr>",opts)
 keymap("n","<localleader>qe", "require('quicknote').OpenNoteAtCurrentLine()<cr>",opts)
 
+--nvim-spectre
+------------------------
+require('spectre').setup()
+
+vim.keymap.set('n', '<localleader>st', '<cmd>lua require("spectre").toggle()<CR>', {
+    desc = "Toggle Spectre"
+})
+vim.keymap.set('v', '<leader>sv', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+    desc = "Search current word"
+})

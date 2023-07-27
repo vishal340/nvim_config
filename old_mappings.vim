@@ -34,7 +34,7 @@ set completeopt=menu,menuone,noselect
 let mapleader = " "
 let maplocalleader ="\\"
 
-nnoremap <localleader>s :source ~/.config/nvim/init.lua<cr>
+nnoremap <localleader><localleader> :source ~/.config/nvim/init.lua<cr>
 
 nmap gf :edit <cfile><cr>
 
