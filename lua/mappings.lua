@@ -276,6 +276,13 @@ require('browse').setup({
 			["cppreference"] = "https://en.cppreference.com/mwiki/index.php?search=%s",
 			["cplusplus"] = "https://cplusplus.com/search.do?q=%s",
 		},
+		["go"] ={
+			["go.dev"] = "https://pkg.go.dev/search?q=%s",
+		},
+		["rust"] ={
+			["library"] = "https://doc.rust-lang.org/std/index.html?search=%s",
+			["Error_code"] = "https://doc.rust-lang.org/error_codes/%s.html"
+		}
 	},
 })
 
