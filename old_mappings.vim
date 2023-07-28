@@ -1,4 +1,3 @@
-
 filetype on
 
 set encoding=utf-8
@@ -37,9 +36,12 @@ let maplocalleader ="\\"
 nnoremap <localleader><localleader> :source ~/.config/nvim/init.lua<cr>
 
 nmap gf :edit <cfile><cr>
-
-nmap <leader>z :set foldmethod<cr>
 nmap <leader>cl :nohlsearch<cr>
+
+augroup vimrc
+  au BufReadPre * setlocal foldmethod=indent
+  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+augroup END
 
 nnoremap Y y$
 
