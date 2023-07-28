@@ -48,7 +48,7 @@ nnoremap <leader><left> :vertical resize -5<cr>
 nnoremap <leader><up> :resize +2<cr>
 nnoremap <leader><down> :resize -2<cr>
 nnoremap <silent><leader>t :let $VIM_DIR=expand('%:p:h')<cr> :40vs <bar> terminal<cr>i cd $VIM_DIR<cr>
-nnoremap <silent><localleader>t :let $VIM_DIR=expand('%:p:h')<cr> :10sp <bar> terminal<cr>i cd $VIM_DIR<cr>
+nnoremap <silent><leader>T :let $VIM_DIR=expand('%:p:h')<cr> :10sp <bar> terminal<cr>i cd $VIM_DIR<cr>
 nmap <leader><tab> :tabnew<space>
 
 nnoremap <C-h> <C-w>h

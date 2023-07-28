@@ -11,11 +11,10 @@ keymap('i','<M-b>','<C-o>b',opts)
 keymap('i','<M-B>','<C-o>B',opts)
 keymap('i','<M-e>','<C-o>e',opts)
 keymap('i','<M-E>','<C-o>E',opts)
-keymap('i','<M-i>','<C-o>I',opts)
-keymap('i','<M-a>','<End>',opts)
-keymap('i','<M-c>','<C-o>.',opts)
+keymap('i','<M-i>','<C-o>^',opts)
+keymap('i','<M-a>','<C-o>$',opts)
+keymap('i','<M-.>','<C-o>.',opts)
 keymap('i','<M-u>','<C-o>u',opts)
-keymap('i','<M-o>','<Home>',opts)
 
 vim.cmd('source $HOME/.config/nvim/lua/config/telescope.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/lspconfig.lua')
@@ -104,14 +103,16 @@ formatting = {
 
 
 --hop(find characters in file)
-keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>")
-keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>")
-keymap('n', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>")
-keymap('n', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>")
-keymap('i', '<M-f>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>")
-keymap('i', '<M-F>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>")
-keymap('i', '<M-t>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>")
-keymap('i', '<M-T>', "<C-o><cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>")
+local hop=require('hop')
+local directions=require('hop.hint').HintDirection
+vim.keymap.set('n', 'f', "<cmd>lua hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false })<cr>")
+vim.keymap.set('n', 'F', "<cmd>lua hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false })<cr>")
+vim.keymap.set('n', 't', "<cmd>lua hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>")
+vim.keymap.set('n', 'T', "<cmd>lua hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>")
+keymap('i', '<M-f>', "<C-o><cmd>lua hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false })<cr>")
+keymap('i', '<M-F>', "<C-o><cmd>lua hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false })<cr>")
+keymap('i', '<M-t>', "<C-o><cmd>lua hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })<cr>")
+keymap('i', '<M-T>', "<C-o><cmd>lua hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })<cr>")
 
 -- keymap('i','<M-f>','<C-o>f',opts)
 -- keymap('i','<M-F>','<C-o>F',opts)
@@ -195,10 +196,7 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = {'org', 'rust', 'toml'}, -- Or run :TSUpdate org
 }
 
-require('orgmode').setup({
-  org_agenda_files = {'~/Dropbox/org/*', '~/my-orgs/**/*'},
-  org_default_notes_file = '~/Dropbox/org/refile.org',
-})
+require('orgmode').setup({})
 
 --debug
 local dap = require('dap')

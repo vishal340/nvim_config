@@ -10,7 +10,7 @@ return require('packer').startup(function(use)
 	use "kyazdani42/nvim-web-devicons"
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
   use({
-	  "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+	  "https://git.sr.ht/~whynothugo/lsp_lines.nvim",  -- better error messages
 	  config = function()
 		  require("lsp_lines").setup()
 	  end,

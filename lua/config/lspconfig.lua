@@ -112,6 +112,11 @@ lspconfig.lua_ls.setup({
   }
 })
 
+require'lspconfig'.vimls.setup{
+	on_attach = on_attach,
+	capabilities =capabilities,
+}
+
 lspconfig.eslint.setup{
     on_attach = on_attach,
 	 capabilities = capabilities,
