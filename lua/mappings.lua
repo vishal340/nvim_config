@@ -16,6 +16,8 @@ keymap('i','<M-a>','<C-o>$',opts)
 keymap('i','<M-.>','<C-o>.',opts)
 keymap('i','<M-u>','<C-o>u',opts)
 keymap('i','<M-5>','<C-o>%',opts)
+keymap('i','<M-d>','<C-o>d',opts)
+keymap('i','<M-y>','<C-o>y',opts)
 
 vim.cmd('source $HOME/.config/nvim/lua/config/telescope.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/lspconfig.lua')
@@ -309,7 +311,7 @@ keymap("n", "<localleader>bd","<cmd>lua require('browse.devdocs').search_with_fi
 --------------------------
 keymap("n","<leader>r",":SnipRun<cr>",opts)
 keymap("v","<leader>r",":'<,'>SnipRun<cr>",opts)
-vim.g.markdown_fenced_languages = { "cpp", "c","rust", "go","lua", "bash", "javascript", "typescript" }
+vim.g.markdown_fenced_languages = { "cpp", "c","rust", "go","lua", "bash", "javascript", "typescript", "python" }
 
 --which-key
 -------------------------
