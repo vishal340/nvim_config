@@ -3,6 +3,7 @@ local keymap = vim.keymap.set
 
 vim.keymap.set('n',"<leader>bt",":highlight Normal guibg=NONE<cr>")
 vim.keymap.set('n',"<leader>bb",":highlight Normal guibg=BLACK<cr>")
+vim.keymap.set('c', "H", "vert h")
 
 keymap('i','<M-h>','<Left>',opts)
 keymap('i','<M-j>','<Down>',opts)
@@ -51,6 +52,7 @@ vim.cmd('source $HOME/.config/nvim/lua/config/nvim_tree.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/dap.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/cmp.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/lualine.lua')
+vim.cmd('source $HOME/.config/nvim/lua/config/sshfs.lua')
 
 require("gist").setup({
 	  private = false, -- All gists will be private, you won't be prompted again
@@ -94,16 +96,6 @@ vim.keymap.set('i', '<M-T>', function()
 	 hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })
 	end)
 
--- keymap('i','<M-f>','<C-o>f',opts)
--- keymap('i','<M-F>','<C-o>F',opts)
--- keymap('i','<M-t>','<C-o>t',opts)
--- keymap('i','<M-T>','<C-o>T',opts)
-keymap('n','<localleader>f','f',opts)
-keymap('n','<localleader>F','F',opts)
-keymap('n','<localleader>t','t',opts)
-keymap('n','<localleader>T','T',opts)
-
-
 -- Load custom tree-sitter grammar for org filetype
 require('orgmode').setup_ts_grammar()
 
@@ -119,7 +111,6 @@ require('nvim-treesitter.configs').setup {
 require('orgmode').setup({})
 
 require('Comment').setup()
-
 
 --sniprun
 --------------------------

@@ -189,4 +189,5 @@ return require('packer').startup(function(use)
 	}
 
 	use 'nvim-pack/nvim-spectre'
+	use 'nosduco/remote-sshfs.nvim'
 end)
