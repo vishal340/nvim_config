@@ -1,6 +1,6 @@
 require('plugins')
 vim.cmd('source $HOME/.config/nvim/old_mappings.vim')
-require('options')
+require('color')
 require('mappings')
 require('scripts')
 

@@ -123,6 +123,10 @@ autocmd TabNewEntered * if bufname("%") == "" | silent! Startify | endif
 nnoremap <silent><leader>s :Startify<cr>
  let g:startify_session_dir= '~/.config/nvim/sessions/'
 
+ "the convention used to save session is session name then underscore
+ "separated by branch name(if not main branch).
+ "before opening the branch first jump to that branch then open it
+
 let g:startify_session_autoload= 0
 let g:startify_session_delete_buffers= 0
 let g:startify_session_number= 20
@@ -152,3 +156,30 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 let g:mkdp_auto_start = 1
 let g:mkdp_auto_close = 1
 let g:mkdp_command_for_global = 1
+
+function DisableSyntaxTreesitter()
+    if exists(':TSBufDisable')
+        exec 'TSBufDisable autotag'
+        exec 'TSBufDisable highlight'
+        exec 'TSBufDisable incremental_selection'
+        exec 'TSBufDisable indent'
+        exec 'TSBufDisable playground'
+        exec 'TSBufDisable query_linter'
+        exec 'TSBufDisable rainbow'
+        exec 'TSBufDisable refactor.highlight_definitions'
+        exec 'TSBufDisable refactor.navigation'
+        exec 'TSBufDisable refactor.smart_rename'
+        exec 'TSBufDisable refactor.highlight_current_scope'
+        exec 'TSBufDisable textobjects.swap'
+        " exec 'TSBufDisable textobjects.move'
+        exec 'TSBufDisable textobjects.lsp_interop'
+        exec 'TSBufDisable textobjects.select'
+    endif
+
+    set foldmethod=manual
+endfunction
+
+augroup BigFileDisable
+    autocmd!
+    autocmd BufReadPre,FileReadPre * if getfsize(expand("%")) > 512 * 1024 | exec DisableSyntaxTreesitter() | endif
+augroup END

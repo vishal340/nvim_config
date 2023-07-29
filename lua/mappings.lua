@@ -122,12 +122,6 @@ vim.g.markdown_fenced_languages = { "cpp", "c","rust", "go","lua", "bash", "java
 -------------------------
 require("which-key").register({prefix = {"leader", "localleader"}})
 
---quicknote
--------------------------
-keymap("n","<localleader>qn", ":lua require('quicknote').NewNoteAtCurrentLine()<cr>",opts)
-keymap("n","<localleader>qs", ":lua require('quicknote').ShowNoteSigns()<cr>",opts)
-keymap("n","<localleader>qe", "require('quicknote').OpenNoteAtCurrentLine()<cr>",opts)
-
 --nvim-spectre
 ------------------------
 require('spectre').setup()
@@ -138,3 +132,8 @@ vim.keymap.set('n', '<localleader>st', '<cmd>lua require("spectre").toggle()<CR>
 vim.keymap.set('v', '<leader>sv', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
     desc = "Search current word"
 })
+
+--highstr
+-----------------
+vim.api.nvim_set_keymap("v","<localleader>hc",":<c-u>HSHighlight<CR>",opts)
+vim.api.nvim_set_keymap("v","<localleader>hr",":<c-u>HSRmHighlight<CR>",opts)

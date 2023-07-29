@@ -1,13 +1,50 @@
 local keymap = vim.keymap.set
 
+local previewers = require("telescope.previewers")
+local actions = require("telescope.actions")
+local Job = require("plenary.job")
+
+local new_maker = function(filepath, bufnr, opts)
+  filepath = vim.fn.expand(filepath)
+  Job:new({
+    command = "file",
+    args = { "--mime-type", "-b", filepath },
+    on_exit = function(j)
+      local mime_type = vim.split(j:result()[1], "/")[1]
+      if mime_type == "text" then
+        previewers.buffer_previewer_maker(filepath, bufnr, opts)
+      else
+        -- maybe we want to write something to the buffer here
+        vim.schedule(function()
+          vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+        end)
+      end
+    end
+  }):sync()
+  opts = opts or {}
+
+  vim.loop.fs_stat(filepath, function(_, stat)
+    if not stat then return end
+    if stat.size > 100000 then
+      return
+    else
+      previewers.buffer_previewer_maker(filepath, bufnr, opts)
+    end
+  end)
+end
+
 require('telescope').setup{
   defaults = {
+	buffer_previewer_maker = new_maker,
     mappings = {
       n = {
         ["<C-y>"] = require("telescope.actions.layout").toggle_preview,
       },
       i = {
         ["<C-y>"] = require("telescope.actions.layout").toggle_preview,
+		  ["<C-u>"] = false,
+		  ["<C-s>"] = actions.cycle_previewers_next,
+        ["<C-a>"] = actions.cycle_previewers_prev,
       },
     },
     prompt_prefix = "   ",
@@ -35,7 +72,7 @@ require('telescope').setup{
         override_file_sorter = true,
         case_mode = "smart_case",
       },
-    },
+   },
     vimgrep_arguments = {
       "rg",
       "--color=never",
@@ -45,6 +82,9 @@ require('telescope').setup{
       "--column",
       "--smart-case",
       "--hidden",
+		"--glob",
+		"!**/.git/*",
+		"--trim",
     },
   },
   pickers = {
@@ -54,11 +94,24 @@ require('telescope').setup{
         width = 0.7,
         prompt_position = "top",
       },
+		find_files = {
+      	mappings = {
+        		n = {
+         		["cd"] = function(prompt_bufnr)
+	            local selection = require("telescope.actions.state").get_selected_entry()
+   	         local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+      	      require("telescope.actions").close(prompt_bufnr)
+         	   -- Depending on what you want put `cd`, `lcd`, `tcd`
+            	vim.cmd(string.format("silent lcd %s", dir))
+          	end
+        		}
+      	}
+    	},
     },
     builtin = {
       previewer = true,
       layout_config = {
-        width = 0.3,
+        width = 0.7,
         prompt_position = "top",
       },
     },
@@ -174,8 +227,53 @@ require("telescope.pickers.layout_strategies").buffer_window = function(self)
   return layout
 end
 
-keymap('n', '<leader>ff', ':Telescope find_files no_ignore=false<cr>')
-keymap('n', '<leader>fg', ':Telescope live_grep preview=true<cr>')
+local find_files_from_project_git_root = function()
+  local function is_git_repo()
+    vim.fn.system("git rev-parse --is-inside-work-tree")
+    return vim.v.shell_error == 0
+  end
+  local function get_git_root()
+    local dot_git_path = vim.fn.finddir(".git", ".;")
+    return vim.fn.fnamemodify(dot_git_path, ":h")
+  end
+  local opts = {}
+  if is_git_repo() then
+    opts = {
+      cwd = get_git_root(),
+    }
+  end
+  require("telescope.builtin").find_files(opts)
+end
+
+local live_grep_from_project_git_root = function()
+	local function is_git_repo()
+		vim.fn.system("git rev-parse --is-inside-work-tree")
+
+		return vim.v.shell_error == 0
+	end
+
+	local function get_git_root()
+		local dot_git_path = vim.fn.finddir(".git", ".;")
+		return vim.fn.fnamemodify(dot_git_path, ":h")
+	end
+
+	local opts = {}
+
+	if is_git_repo() then
+		opts = {
+			cwd = get_git_root(),
+		}
+	end
+
+	require("telescope.builtin").live_grep(opts)
+end
+
+keymap('n', '<leader>ff',function()
+		find_files_from_project_git_root()
+	end)
+keymap('n', '<leader>fg', function()
+		live_grep_from_project_git_root()
+	end)
 keymap('n', '<leader>fm', ':Telescope marks preview=true<cr>')
 keymap('n', '<leader>fb', ':Telescope buffers<cr>')
 keymap('n', '<leader>fh', ':Telescope help_tags preview=true<cr>')
