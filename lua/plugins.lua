@@ -20,6 +20,7 @@ return require('packer').startup(function(use)
 	use 'hrsh7th/cmp-path'
 	use 'hrsh7th/cmp-cmdline'
 	use 'hrsh7th/nvim-cmp'
+	use {'kevinhwang91/nvim-bqf', ft= 'qf'}
 
 	use 'mfussenegger/nvim-dap'
 	use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
@@ -45,6 +46,7 @@ return require('packer').startup(function(use)
   		'nvim-telescope/telescope.nvim', branch = '0.1.x',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
+	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
 	use {
 	  'kyazdani42/nvim-tree.lua',
@@ -180,4 +182,5 @@ return require('packer').startup(function(use)
 	use 'nosduco/remote-sshfs.nvim'
 	use "Pocco81/HighStr.nvim"
 	use "tpope/vim-dadbod"
+	use 'rhysd/vim-grammarous'
 end)

@@ -168,6 +168,8 @@ require('telescope').setup{
   },
 }
 
+require('telescope').load_extension('fzf')
+
 require("telescope.pickers.layout_strategies").buffer_window = function(self)
   local layout = require("telescope.pickers.window").get_initial_window_options(self)
   local prompt = layout.prompt
@@ -175,9 +177,9 @@ require("telescope.pickers.layout_strategies").buffer_window = function(self)
   local preview = layout.preview
   local config = self.layout_config
   local padding = self.window.border and 2 or 0
-  local width = api.nvim_win_get_width(self.original_win_id)
-  local height = api.nvim_win_get_height(self.original_win_id)
-  local pos = api.nvim_win_get_position(self.original_win_id)
+  local width = vim.api.nvim_win_get_width(self.original_win_id)
+  local height = vim.api.nvim_win_get_height(self.original_win_id)
+  local pos = vim.api.nvim_win_get_position(self.original_win_id)
   local wline = pos[1] + 1
   local wcol = pos[2] + 1
   
