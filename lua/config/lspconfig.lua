@@ -50,31 +50,27 @@ local on_attach = function(client, bufnr)
 	keymap('n', '<leader>k', '<cmd>lua require("pretty_hover").close()<cr>',opts)
 end
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
 local lspconfig= require('lspconfig')
+local lsp_defaults = lspconfig.util.default_config
+lsp_defaults.capabilities = vim.tbl_deep_extend(
+	'force',
+	lsp_defaults.capabilities,
+	require('cmp_nvim_lsp').default_capabilities()
+)
 
-lspconfig['pyright'].setup{
-    on_attach = on_attach,
-	 capabilities = capabilities,
-}
-lspconfig['tsserver'].setup{
-    on_attach = on_attach,
-	 capabilities = capabilities,
-}
+lsp_defaults.on_attach = on_attach
+
+lspconfig['pyright'].setup{}
+lspconfig['tsserver'].setup{}
 lspconfig['rust_analyzer'].setup{
-    on_attach = on_attach,
-	 capabilities = capabilities,
-    -- Server-specific settings...
+        -- Server-specific settings...
     settings = {
       ["rust-analyzer"] = {}
     }
 }
 
 lspconfig.clangd.setup{
-    on_attach = on_attach,
-	 capabilities = capabilities,
-	 cmd = {
+    	 cmd = {
 		 "clangd",
         "--header-insertion=never",
         "--query-driver=/usr/lib/llvm-14/bin/clang",
@@ -84,22 +80,16 @@ lspconfig.clangd.setup{
 }
 
 lspconfig['gopls'].setup{
-    on_attach = on_attach,
-	 capabilities = capabilities,
-	 cmd = { 'jdtls' },
+    	 cmd = { 'jdtls' },
 }
 
 lspconfig['asm_lsp'].setup{
-    on_attach = on_attach,
-	 capabilities = capabilities,
-	 filetype = { "asm", "s", "S"},
+    	 filetype = { "asm", "s", "S"},
 	 command = "asm-lsp"
 }
 
 lspconfig.lua_ls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
+    settings = {
     Lua = {
 		 runtime = {
         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
@@ -125,13 +115,7 @@ lspconfig.lua_ls.setup({
   }
 })
 
-require'lspconfig'.vimls.setup{
-	on_attach = on_attach,
-	capabilities =capabilities,
-}
+require'lspconfig'.vimls.setup{}
 
-lspconfig.eslint.setup{
-    on_attach = on_attach,
-	 capabilities = capabilities,
-}
+lspconfig.eslint.setup{}
 
