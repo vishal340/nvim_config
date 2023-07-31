@@ -8,8 +8,14 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
   keymap('n', '<leader>gtD', '<cmd>tab split| lua vim.lsp.buf.declaration()<cr>', bufopts)
+  keymap('n', '<leader>gvD', '<cmd>vs| lua vim.lsp.buf.declaration()<cr>', bufopts)
+  keymap('n', '<leader>ghD', '<cmd>sp| lua vim.lsp.buf.declaration()<cr>', bufopts)
   keymap('n', '<leader>gtd', '<cmd>tab split| lua vim.lsp.buf.definition()<cr>', bufopts)
+  keymap('n', '<leader>gvd', '<cmd>vs| lua vim.lsp.buf.definition()<cr>', bufopts)
+  keymap('n', '<leader>ghd', '<cmd>sp| lua vim.lsp.buf.definition()<cr>', bufopts)
   keymap('n', '<leader>gti', '<cmd>tab split| lua vim.lsp.buf.implementation()<cr>', bufopts)
+  keymap('n', '<leader>gvi', '<cmd>vs| lua vim.lsp.buf.implementation()<cr>', bufopts)
+  keymap('n', '<leader>ghi', '<cmd>sp| lua vim.lsp.buf.implementation()<cr>', bufopts)
 	keymap('n', '<leader>gi', function()
 	  require("telescope.builtin").lsp_implementations()
 		end, bufopts)
@@ -68,6 +74,13 @@ lspconfig['rust_analyzer'].setup{
 lspconfig.clangd.setup{
     on_attach = on_attach,
 	 capabilities = capabilities,
+	 cmd = {
+		 "clangd",
+        "--header-insertion=never",
+        "--query-driver=/usr/lib/llvm-14/bin/clang",
+        "--all-scopes-completion",
+        "--completion-style=detailed",
+	 }
 }
 
 lspconfig['gopls'].setup{

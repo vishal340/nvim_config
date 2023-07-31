@@ -3,7 +3,7 @@ local keymap = vim.keymap.set
 
 vim.keymap.set('n',"<leader>bt",":highlight Normal guibg=NONE<cr>")
 vim.keymap.set('n',"<leader>bb",":highlight Normal guibg=BLACK<cr>")
-vim.keymap.set('c', "H", "vert h")
+vim.keymap.set('c', "<M-h>", "vert h ")
 
 keymap('i','<M-h>','<Left>',opts)
 keymap('i','<M-j>','<Down>',opts)
@@ -46,13 +46,20 @@ require'nvim-web-devicons'.setup {
  default = true;
 }
 
+--hop(find characters in file)
+vim.keymap.set('', 'f', ':HopChar1<cr>',{remap=true})
+vim.keymap.set('', 'F', ':HopWord<cr>',{remap=true})
+vim.keymap.set('i', '<M-f>', '<C-o>:HopChar1<cr>')
+vim.keymap.set('i', '<M-F>', '<C-o>:HopWord<cr>')
+
 vim.cmd('source $HOME/.config/nvim/lua/config/telescope.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/lspconfig.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/nvim_tree.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/dap.lua')
-vim.cmd('source $HOME/.config/nvim/lua/config/cmp.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/lualine.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/sshfs.lua')
+vim.cmd('source $HOME/.config/nvim/lua/config/fzf.vim')
+vim.cmd('source $HOME/.config/nvim/lua/config/cmp.lua')
 
 require("gist").setup({
 	  private = false, -- All gists will be private, you won't be prompted again
@@ -66,13 +73,6 @@ require("gist").setup({
 		}
 	  }
  })
-
-
---hop(find characters in file)
-vim.keymap.set('', 'f', ':HopChar1<cr>',{remap=true})
-vim.keymap.set('', 'F', ':HopWord<cr>',{remap=true})
-vim.keymap.set('i', '<M-f>', '<C-o>:HopChar1<cr>')
-vim.keymap.set('i', '<M-F>', '<C-o>:HopWord<cr>')
 
 -- Load custom tree-sitter grammar for org filetype
 require('orgmode').setup_ts_grammar()
