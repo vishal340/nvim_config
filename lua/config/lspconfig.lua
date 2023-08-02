@@ -121,3 +121,4 @@ lspconfig.bashls.setup{}
 lspconfig.eslint.setup{}
 lspconfig.html.setup{}
 lspconfig.cmake.setup{}
+lspconfig.dockerls.setup{}
