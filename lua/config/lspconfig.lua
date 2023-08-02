@@ -47,7 +47,6 @@ local on_attach = function(client, bufnr)
 	keymap('n', '<leader>dh', '<cmd>lua vim.diagnostic.hide()<cr>', opts)
 	keymap('n', '<leader>ds', '<cmd>lua vim.diagnostic.show()<cr>', opts)
 	keymap('n', 'K', '<cmd>lua require("pretty_hover").hover()<cr>',opts)
-	keymap('n', '<leader>k', '<cmd>lua require("pretty_hover").close()<cr>',opts)
 end
 
 local lspconfig= require('lspconfig')
@@ -57,11 +56,13 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 	lsp_defaults.capabilities,
 	require('cmp_nvim_lsp').default_capabilities()
 )
+lsp_defaults.capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 lsp_defaults.on_attach = on_attach
 
 lspconfig['pyright'].setup{}
 lspconfig['tsserver'].setup{}
+lspconfig.jsonls.setup{}
 lspconfig['rust_analyzer'].setup{
         -- Server-specific settings...
     settings = {
@@ -115,7 +116,8 @@ lspconfig.lua_ls.setup({
   }
 })
 
-require'lspconfig'.vimls.setup{}
-
+lspconfig.vimls.setup{}
+lspconfig.bashls.setup{}
 lspconfig.eslint.setup{}
-
+lspconfig.html.setup{}
+lspconfig.cmake.setup{}

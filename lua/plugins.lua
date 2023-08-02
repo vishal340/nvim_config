@@ -182,5 +182,6 @@ return require('packer').startup(function(use)
 	use 'nosduco/remote-sshfs.nvim'
 	use "Pocco81/HighStr.nvim"
 	use "tpope/vim-dadbod"
+	use 'kristijanhusak/vim-dadbod-ui'
 	use 'rhysd/vim-grammarous'
 end)
