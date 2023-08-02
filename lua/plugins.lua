@@ -25,6 +25,7 @@ return require('packer').startup(function(use)
 	use 'mfussenegger/nvim-dap'
 	use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 	use 'folke/neodev.nvim'
+	use 'jbyuki/one-small-step-for-vimkind'
 
 	use {
   		'nvim-lualine/lualine.nvim',
@@ -178,7 +179,6 @@ return require('packer').startup(function(use)
     end,
 	}
 
-	use 'nvim-pack/nvim-spectre'
 	use 'nosduco/remote-sshfs.nvim'
 	use "Pocco81/HighStr.nvim"
 	use "tpope/vim-dadbod"
