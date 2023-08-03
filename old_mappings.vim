@@ -1,7 +1,7 @@
 filetype plugin indent on
 
 set encoding=utf-8
-set mouse=a
+" set mouse=a
 set tabstop=3
 set shiftwidth=3
 set noexpandtab
@@ -35,13 +35,21 @@ let maplocalleader ="\\"
 
 nnoremap <localleader><localleader> :source ~/.config/nvim/init.lua<cr>
 
+let g:clipboard = {
+	 \   'name': 'myClipboard',
+	 \   'copy': {
+	 \      '+': ['tmux', 'load-buffer', '-'],
+	 \      '*': ['tmux', 'load-buffer', '-'],
+	 \    },
+	 \   'paste': {
+	 \      '+': ['tmux', 'save-buffer', '-'],
+	 \      '*': ['tmux', 'save-buffer', '-'],
+	 \   },
+	 \   'cache_enabled': 1,
+	 \ }
 nmap gf :edit <cfile><cr>
 nmap <leader>cl :nohlsearch<cr>
 
-augroup vimrc
-  au BufReadPre * setlocal foldmethod=indent
-  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
-augroup END
 
 nnoremap Y y$
 
@@ -86,35 +94,6 @@ nnoremap gf <C-w>gf
 "--------------------------------------------------------------------
 set viewoptions=cursor,folds,slash,unix
 set viewoptions-=options
-if !exists("g:skipview_files")
-    let g:skipview_files = []
-endif
-
-function! MakeViewCheck()
-    if &l:diff | return 0 | endif
-    if &buftype != '' | return 0 | endif
-    if expand('%') =~ '\[.*\]' | return 0 | endif
-    if empty(glob(expand('%:p'))) | return 0 | endif
-    if &modifiable == 0 | return 0 | endif
-    if len($TEMP) && expand('%:p:h') == $TEMP | return 0 | endif
-    if len($TMP) && expand('%:p:h') == $TMP | return 0 | endif
-
-    let file_name = expand('%:p')
-    for ifiles in g:skipview_files
-        if file_name =~ ifiles
-            return 0
-        endif
-    endfor
-
-    return 1
-endfunction
-
-augroup AutoView
-    autocmd!
-    " Autosave & Load Views.
-    autocmd BufWritePre,BufWinLeave ?* if MakeViewCheck() | silent! mkview | endif
-    autocmd BufWinEnter ?* if MakeViewCheck() | silent! loadview | endif
-augroup END
 "---------------------------
 
 "startify
@@ -156,30 +135,3 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 let g:mkdp_auto_start = 1
 let g:mkdp_auto_close = 1
 let g:mkdp_command_for_global = 1
-
-function DisableSyntaxTreesitter()
-    if exists(':TSBufDisable')
-        exec 'TSBufDisable autotag'
-        exec 'TSBufDisable highlight'
-        exec 'TSBufDisable incremental_selection'
-        exec 'TSBufDisable indent'
-        exec 'TSBufDisable playground'
-        exec 'TSBufDisable query_linter'
-        exec 'TSBufDisable rainbow'
-        exec 'TSBufDisable refactor.highlight_definitions'
-        exec 'TSBufDisable refactor.navigation'
-        exec 'TSBufDisable refactor.smart_rename'
-        exec 'TSBufDisable refactor.highlight_current_scope'
-        exec 'TSBufDisable textobjects.swap'
-        " exec 'TSBufDisable textobjects.move'
-        exec 'TSBufDisable textobjects.lsp_interop'
-        exec 'TSBufDisable textobjects.select'
-    endif
-
-    set foldmethod=manual
-endfunction
-
-augroup BigFileDisable
-    autocmd!
-    autocmd BufReadPre,FileReadPre * if getfsize(expand("%")) > 512 * 1024 | exec DisableSyntaxTreesitter() | endif
-augroup END

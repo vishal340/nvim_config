@@ -52,6 +52,7 @@ vim.keymap.set('', 'F', ':HopWord<cr>',{remap=true})
 vim.keymap.set('i', '<M-f>', '<C-o>:HopChar1<cr>')
 vim.keymap.set('i', '<M-F>', '<C-o>:HopWord<cr>')
 
+vim.cmd('source $HOME/.config/nvim/lua/config/treesitter.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/telescope.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/lspconfig.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/nvim_tree.lua')
@@ -77,14 +78,6 @@ require("gist").setup({
 -- Load custom tree-sitter grammar for org filetype
 require('orgmode').setup_ts_grammar()
 
--- Tree-sitter configuration
-require('nvim-treesitter.configs').setup {
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = {'org'}, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
-  },
-  ensure_installed = {'org', 'rust', 'toml'}, -- Or run :TSUpdate org
-}
 
 require('orgmode').setup({})
 
