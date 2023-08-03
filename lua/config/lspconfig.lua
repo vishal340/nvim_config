@@ -122,3 +122,4 @@ lspconfig.eslint.setup{}
 lspconfig.html.setup{}
 lspconfig.cmake.setup{}
 lspconfig.dockerls.setup{}
+lspconfig.gradle_ls.setup{}
