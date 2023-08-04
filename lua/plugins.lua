@@ -81,6 +81,7 @@ return require('packer').startup(function(use)
 	use {
     "iamcco/markdown-preview.nvim",
     run = "cd app && npm install",
+	 setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
     ft = "markdown",
   }
 	use "mfussenegger/nvim-jdtls"
@@ -120,7 +121,7 @@ return require('packer').startup(function(use)
 	use {
 		"Fildo7525/pretty_hover",
 		config = function()
-		require("pretty_hover").setup(options)
+		require("pretty_hover").setup()
 	end
 	}
 
@@ -136,10 +137,6 @@ return require('packer').startup(function(use)
 	  "lalitmee/browse.nvim",
 	  requires = { "nvim-telescope/telescope.nvim" },
 	})
-	use {'nvim-orgmode/orgmode', config = function()
-        require('orgmode').setup{}
-	end
-	}
 	use {
   "folke/which-key.nvim",
   config = function()

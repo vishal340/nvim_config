@@ -53,6 +53,7 @@ vim.keymap.set('i', '<M-f>', '<C-o>:HopChar1<cr>')
 vim.keymap.set('i', '<M-F>', '<C-o>:HopWord<cr>')
 
 vim.cmd('source $HOME/.config/nvim/lua/config/treesitter.lua')
+vim.cmd('source $HOME/.config/nvim/lua/config/nvim-lint.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/telescope.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/lspconfig.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/nvim_tree.lua')
@@ -61,6 +62,7 @@ vim.cmd('source $HOME/.config/nvim/lua/config/lualine.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/sshfs.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/fzf.vim')
 vim.cmd('source $HOME/.config/nvim/lua/config/cmp.lua')
+
 
 require("gist").setup({
 	  private = false, -- All gists will be private, you won't be prompted again
@@ -74,12 +76,6 @@ require("gist").setup({
 		}
 	  }
  })
-
--- Load custom tree-sitter grammar for org filetype
-require('orgmode').setup_ts_grammar()
-
-
-require('orgmode').setup({})
 
 require('Comment').setup()
 

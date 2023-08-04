@@ -1,5 +1,6 @@
 filetype plugin indent on
 
+
 set encoding=utf-8
 " set mouse=a
 set tabstop=3
@@ -29,24 +30,26 @@ set path+=**
 set modifiable
 set autochdir
 set completeopt=menu,menuone,noselect
+set guicursor=n-v-c:block,i-ci-ve:ver10,r-cr:hor100,o:hor100
 
 let mapleader = " "
 let maplocalleader ="\\"
 
 nnoremap <localleader><localleader> :source ~/.config/nvim/init.lua<cr>
 
-let g:clipboard = {
-	 \   'name': 'myClipboard',
-	 \   'copy': {
-	 \      '+': ['tmux', 'load-buffer', '-'],
-	 \      '*': ['tmux', 'load-buffer', '-'],
-	 \    },
-	 \   'paste': {
-	 \      '+': ['tmux', 'save-buffer', '-'],
-	 \      '*': ['tmux', 'save-buffer', '-'],
-	 \   },
-	 \   'cache_enabled': 1,
-	 \ }
+" let g:clipboard = {
+" 			 \   'name': 'WslClipboard',
+" 			 \   'copy': {
+" 			 \      '+': 'clip.exe',
+" 			 \      '*': 'clip.exe',
+" 			 \    },
+" 			 \   'paste': {
+" 			 \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+" 			 \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+" 			 \   },
+" 			 \   'cache_enabled': 0,
+" 			 \ }
+
 nmap gf :edit <cfile><cr>
 nmap <leader>cl :nohlsearch<cr>
 
@@ -94,7 +97,6 @@ nnoremap gf <C-w>gf
 "--------------------------------------------------------------------
 set viewoptions=cursor,folds,slash,unix
 set viewoptions-=options
-"---------------------------
 
 "startify
 "--------------------------------
@@ -132,6 +134,8 @@ imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 
 "markdown
+let g:mkdp_browser = '/usr/bin/firefox'
 let g:mkdp_auto_start = 1
 let g:mkdp_auto_close = 1
 let g:mkdp_command_for_global = 1
+let g:mkdp_echo_preview_url = 1

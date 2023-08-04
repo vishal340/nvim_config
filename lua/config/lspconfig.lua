@@ -60,15 +60,10 @@ lsp_defaults.capabilities.textDocument.completion.completionItem.snippetSupport 
 
 lsp_defaults.on_attach = on_attach
 
-lspconfig['pyright'].setup{}
-lspconfig['tsserver'].setup{}
+lspconfig.pyright.setup{}
+lspconfig.tsserver.setup{}
 lspconfig.jsonls.setup{}
-lspconfig['rust_analyzer'].setup{
-        -- Server-specific settings...
-    settings = {
-      ["rust-analyzer"] = {}
-    }
-}
+lspconfig.rust_analyzer.setup{}
 
 lspconfig.clangd.setup{
     	 cmd = {
@@ -80,12 +75,12 @@ lspconfig.clangd.setup{
 	 }
 }
 
-lspconfig['gopls'].setup{
+lspconfig.gopls.setup{
     	 cmd = { 'jdtls' },
 }
 
-lspconfig['asm_lsp'].setup{
-    	 filetype = { "asm", "s", "S"},
+lspconfig.asm_lsp.setup{
+    	 filetype = { "asm", "s", "S", "vmasm"},
 	 command = "asm-lsp"
 }
 
@@ -123,3 +118,11 @@ lspconfig.html.setup{}
 lspconfig.cmake.setup{}
 lspconfig.dockerls.setup{}
 lspconfig.gradle_ls.setup{}
+
+lspconfig.ltex.setup{
+	settings = {
+		ltex = {
+			language = "en-us",
+		},
+	},
+}
