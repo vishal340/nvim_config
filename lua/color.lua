@@ -13,6 +13,7 @@ vim.api.nvim_set_hl(0, "LineNrAbove", {fg="#a50000"})
 vim.api.nvim_set_hl(0, "LineNrBelow", {fg="#009e00"})
 vim.api.nvim_set_hl(0, "Normal", {fg="#3db7b7"})
 -- vim.api.nvim_set_hl(0, "lCursor", {bg="#b75a79"})
+vim.api.nvim_set_hl(0, "Visual", {fg="#613c45"})
 
 vim.diagnostic.config({
 	virtual_text = false,

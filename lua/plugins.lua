@@ -121,7 +121,7 @@ return require('packer').startup(function(use)
 	use {
 		"Fildo7525/pretty_hover",
 		config = function()
-		require("pretty_hover").setup()
+		require("pretty_hover").setup({})
 	end
 	}
 
