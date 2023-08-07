@@ -30,20 +30,20 @@ require("luasnip.loaders.from_vscode").lazy_load({paths = {"~/.config/nvim/snipp
 require'sniprun'.setup({selected_interpreters = {'Python3_jupyter'}})
 
 require'nvim-web-devicons'.setup {
- -- your personnal icons can go here (to override)
- -- you can specify color or cterm_color instead of specifying both of them
- -- DevIcon will be appended to `name`
- override = {
-  zsh = {
-    icon = "",
-    color = "#428850",
-    cterm_color = "65",
-    name = "Zsh"
-  }
- };
- -- globally enable default icons (default to false)
- -- will get overriden by `get_icons` option
- default = true;
+	-- your personnal icons can go here (to override)
+	-- you can specify color or cterm_color instead of specifying both of them
+	-- DevIcon will be appended to `name`
+	override = {
+		zsh = {
+			icon = "",
+			color = "#428850",
+			cterm_color = "65",
+			name = "Zsh"
+		}
+	};
+	-- globally enable default icons (default to false)
+	-- will get overriden by `get_icons` option
+	default = true;
 }
 
 --hop(find characters in file)
@@ -53,7 +53,7 @@ vim.keymap.set('i', '<M-f>', '<C-o>:HopChar1<cr>')
 vim.keymap.set('i', '<M-F>', '<C-o>:HopWord<cr>')
 
 vim.cmd('source $HOME/.config/nvim/lua/config/treesitter.lua')
-vim.cmd('source $HOME/.config/nvim/lua/config/nvim-lint.lua')
+-- vim.cmd('source $HOME/.config/nvim/lua/config/nvim-lint.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/telescope.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/lspconfig.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/nvim_tree.lua')
@@ -62,20 +62,21 @@ vim.cmd('source $HOME/.config/nvim/lua/config/lualine.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/sshfs.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/fzf.vim')
 vim.cmd('source $HOME/.config/nvim/lua/config/cmp.lua')
+vim.cmd('source $HOME/.config/nvim/lua/config/browse.lua')
 
 
 require("gist").setup({
-	  private = false, -- All gists will be private, you won't be prompted again
-	  clipboard = "+", -- The registry to use for copying the Gist URL
-	  list = {
-			-- If there are multiple files in a gist you can scroll them,
-			-- with vim-like bindings n/p next previous
+	private = false, -- All gists will be private, you won't be prompted again
+	clipboard = "+", -- The registry to use for copying the Gist URL
+	list = {
+		-- If there are multiple files in a gist you can scroll them,
+		-- with vim-like bindings n/p next previous
 		mappings = {
-			 next_file = "<TAB>",
-			 prev_file = "<S-TAB>"
+			next_file = "<TAB>",
+			prev_file = "<S-TAB>"
 		}
-	  }
- })
+	}
+})
 
 require('Comment').setup()
 

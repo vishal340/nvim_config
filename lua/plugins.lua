@@ -5,7 +5,7 @@ return require('packer').startup(function(use)
   use "williamboman/mason.nvim"
   use "williamboman/mason-lspconfig.nvim"
   use "onsails/lspkind.nvim"
-  use "mfussenegger/nvim-lint"
+  -- use "mfussenegger/nvim-lint"
   use "nvim-lua/plenary.nvim"
 	use "kyazdani42/nvim-web-devicons"
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
@@ -24,7 +24,12 @@ return require('packer').startup(function(use)
 
 	use 'mfussenegger/nvim-dap'
 	use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
-	use 'folke/neodev.nvim'
+	use {
+		'folke/neodev.nvim',
+		config= function()
+			require('neodev').setup()
+		end
+	}
 	use 'jbyuki/one-small-step-for-vimkind'
 
 	use {
@@ -174,6 +179,7 @@ return require('packer').startup(function(use)
             },
         }
     end,
+	 cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
 	}
 
 	use 'nosduco/remote-sshfs.nvim'

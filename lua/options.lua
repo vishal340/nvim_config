@@ -28,7 +28,7 @@ set path+=**
 set modifiable
 set autochdir
 set completeopt=menu,menuone,noselect
-set guicursor=n-v-c:block,i-ci-ve:ver10,r-cr:hor100,o:hor100
+" set guicursor=n-v-c:block,i-ci-ve:ver10,r-cr:hor100,o:hor100
 set viewoptions=cursor,folds,slash,unix
 set viewoptions-=options
 ]])
