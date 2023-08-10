@@ -64,6 +64,7 @@ vim.cmd('source $HOME/.config/nvim/lua/config/cmp.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/browse.lua')
 
 
+keymap('n','<leader>*','g* :let $str=getreg("/")<cr> :Ggrep -q $str')
 require("gist").setup({
 	private = false, -- All gists will be private, you won't be prompted again
 	clipboard = "+", -- The registry to use for copying the Gist URL

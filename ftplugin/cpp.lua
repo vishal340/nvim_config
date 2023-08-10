@@ -5,7 +5,7 @@ function! SetMkfile()
 	let filemk = "Makefile"
 	let pathmk = "./"
 	let depth = 1
-	while depth < 4
+	while depth < 5
 		if filereadable(pathmk . filemk)
 			return pathmk
 		endif
