@@ -52,8 +52,7 @@ return require('packer').startup(function(use)
   		'nvim-telescope/telescope.nvim', branch = '0.1.x',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
-	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-	use '~/.fzf'
+	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }  --use linrongbin16/fzfx.vim if needed
 	use {
 	  'kyazdani42/nvim-tree.lua',
 	  requires = {
@@ -142,6 +141,18 @@ return require('packer').startup(function(use)
 	  "lalitmee/browse.nvim",
 	  requires = { "nvim-telescope/telescope.nvim" },
 	})
+	-- use {
+	-- 	"luckasRanarison/nvim-devdocs",
+ --  		dependencies = {
+ --    		"nvim-lua/plenary.nvim",
+ --    		"nvim-telescope/telescope.nvim",
+ --    		"nvim-treesitter/nvim-treesitter",
+ --  		},
+	-- 	opts ={},
+	-- 	config = function()
+	-- 		require("nvim-devdocs").setup({})
+	-- 	end
+	-- }
 	use {
   "folke/which-key.nvim",
   config = function()

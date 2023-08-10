@@ -60,7 +60,6 @@ vim.cmd('source $HOME/.config/nvim/lua/config/nvim_tree.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/dap.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/lualine.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/sshfs.lua')
-vim.cmd('source $HOME/.config/nvim/lua/config/fzf.vim')
 vim.cmd('source $HOME/.config/nvim/lua/config/cmp.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/browse.lua')
 

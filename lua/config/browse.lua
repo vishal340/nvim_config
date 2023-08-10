@@ -31,4 +31,3 @@ require('browse').setup({
 keymap("n", "<leader>b","<cmd>lua require('browse').input_search()<cr>", opts)
 keymap("n", "<localleader>b","<cmd>lua require('browse').browse(bookmarks)<cr>", opts)
 keymap("n", "<localleader>bd","<cmd>lua require('browse.devdocs').search_with_filetype()<cr>", opts)
-
