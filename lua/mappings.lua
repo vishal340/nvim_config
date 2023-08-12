@@ -62,6 +62,8 @@ vim.cmd('source $HOME/.config/nvim/lua/config/lualine.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/sshfs.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/cmp.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/browse.lua')
+vim.cmd('source $HOME/.config/nvim/lua/config/godbolt.lua')
+vim.cmd('source $HOME/.config/nvim/lua/config/format-on-save.lua')
 
 
 keymap('n','<leader>*','g* :let $str=getreg("/")<cr> :Ggrep -q $str')

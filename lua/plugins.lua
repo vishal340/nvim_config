@@ -6,6 +6,7 @@ return require('packer').startup(function(use)
   use "williamboman/mason-lspconfig.nvim"
   use "onsails/lspkind.nvim"
   -- use "mfussenegger/nvim-lint"
+  use "elentok/format-on-save.nvim"
   use "nvim-lua/plenary.nvim"
 	use "kyazdani42/nvim-web-devicons"
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
@@ -50,7 +51,7 @@ return require('packer').startup(function(use)
 
 	use {
   		'nvim-telescope/telescope.nvim', branch = '0.1.x',
-		requires = { {'nvim-lua/plenary.nvim'} }
+		requires = {'nvim-lua/plenary.nvim'}
 	}
 	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }  --use linrongbin16/fzfx.vim if needed
 	use {
@@ -143,14 +144,13 @@ return require('packer').startup(function(use)
 	})
 	-- use {
 	-- 	"luckasRanarison/nvim-devdocs",
- --  		dependencies = {
+ --  		requires = {
  --    		"nvim-lua/plenary.nvim",
  --    		"nvim-telescope/telescope.nvim",
  --    		"nvim-treesitter/nvim-treesitter",
  --  		},
-	-- 	opts ={},
 	-- 	config = function()
-	-- 		require("nvim-devdocs").setup({})
+	-- 		require("nvim-devdocs").setup{}
 	-- 	end
 	-- }
 	use {
@@ -198,4 +198,5 @@ return require('packer').startup(function(use)
 	use "tpope/vim-dadbod"
 	use 'kristijanhusak/vim-dadbod-ui'
 	use 'rhysd/vim-grammarous'
+	use 'p00f/godbolt.nvim'
 end)
