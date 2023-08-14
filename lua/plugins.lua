@@ -5,7 +5,7 @@ return require('packer').startup(function(use)
 	use "williamboman/mason.nvim"
 	use "williamboman/mason-lspconfig.nvim"
 	use "onsails/lspkind.nvim"
-	-- use "mfussenegger/nvim-lint"
+	use "mfussenegger/nvim-lint"
 	use "elentok/format-on-save.nvim"
 	use "nvim-lua/plenary.nvim"
 	use "kyazdani42/nvim-web-devicons"
