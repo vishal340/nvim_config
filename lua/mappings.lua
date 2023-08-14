@@ -47,6 +47,7 @@ vim.keymap.set('', 'F', ':HopWord<cr>', { remap = true })
 vim.keymap.set('i', '<M-f>', '<C-o>:HopChar1<cr>')
 vim.keymap.set('i', '<M-F>', '<C-o>:HopWord<cr>')
 
+vim.cmd('source $HOME/.config/nvim/lua/config/markdown-preview.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/treesitter.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/luasnip.lua')
 -- vim.cmd('source $HOME/.config/nvim/lua/config/nvim-lint.lua')

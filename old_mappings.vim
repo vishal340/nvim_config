@@ -72,11 +72,3 @@ let g:startify_lists = [
         \ { 'type': 'files',     'header': ['   MRU']            },
         \ { 'type': 'sessions',  'header': ['   Sessions']       },
         \ ]
-
-"markdown
-"------------------
-let g:mkdp_browser = '/usr/bin/firefox'
-let g:mkdp_auto_start = 1
-let g:mkdp_auto_close = 1
-let g:mkdp_command_for_global = 1
-let g:mkdp_echo_preview_url = 1

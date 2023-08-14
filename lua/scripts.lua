@@ -1,9 +1,9 @@
 vim.api.nvim_create_autocmd('BufEnter', {
-    command = "if winnr('$') == 1 && bufname() =~ glob2regpat('term:*/bin/bash') | quit | endif",
-    nested = true,
+	command = "if winnr('$') == 1 && bufname() =~ glob2regpat('term:*/bin/bash') | quit | endif",
+	nested = true,
 })
 
-vim.cmd ([[
+vim.cmd([[
 	augroup vimrc
 	  au BufReadPre * setlocal foldmethod=indent
 	  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
