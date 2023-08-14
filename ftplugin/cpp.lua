@@ -1,5 +1,5 @@
 vim.cmd([[
-autocmd BufWinLeave *.cpp,*.hpp,*.h if &modifiable == 1 && &readonly == 0 | silent! exe "normal gg=GZZ" | endif
+" autocmd BufWinLeave *.cpp,*.hpp,*.h if &modifiable == 1 && &readonly == 0 | silent! exe "normal gg=GZZ" | endif
 
 function! SetMkfile()
 	let filemk = "Makefile"
@@ -17,4 +17,4 @@ endfunction
 
 command! -nargs=* Make tabnew | let $mkpath = SetMkfile() | make <args> -C $mkpath | c
 ]])
-vim.keymap.set('i','std','std::',{buffer=true})
+vim.keymap.set('i', 'std', 'std::', { buffer = true })

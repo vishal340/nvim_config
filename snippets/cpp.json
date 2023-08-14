@@ -6,8 +6,8 @@
 			"using namespace std;",
 			"",
 			"int main(){",
-				"return 0;",
-				"}"
+			"\t return 0;",
+			"}"
 		],
 		"description": "code snippet for less includes"
 	}
