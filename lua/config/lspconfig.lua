@@ -64,8 +64,22 @@ lsp_defaults.capabilities.textDocument.completion.completionItem.snippetSupport 
 
 lsp_defaults.on_attach = on_attach
 
-lspconfig.pyright.setup {}
-lspconfig.tsserver.setup {}
+require 'lspconfig'.ruff_lsp.setup {
+	init_options = {
+		settings = {
+			-- Any extra CLI arguments for `ruff` go here.
+			args = {},
+		}
+	}
+}
+lspconfig.eslint.setup({
+	on_attach = function(client, bufnr)
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			command = "EslintFixAll",
+		})
+	end,
+})
 lspconfig.jsonls.setup {}
 lspconfig.rust_analyzer.setup {}
 

@@ -12,7 +12,6 @@ vim.cmd([[
 	if !exists("g:skipview_files")
 		 let g:skipview_files = []
 	endif
-
 	function! MakeViewCheck()
 		 if &l:diff | return 0 | endif
 		 if &buftype != '' | return 0 | endif
@@ -21,17 +20,14 @@ vim.cmd([[
 		 if &modifiable == 0 | return 0 | endif
 		 if len($TEMP) && expand('%:p:h') == $TEMP | return 0 | endif
 		 if len($TMP) && expand('%:p:h') == $TMP | return 0 | endif
-
 		 let file_name = expand('%:p')
 		 for ifiles in g:skipview_files
 			  if file_name =~ ifiles
 					return 0
 			  endif
 		 endfor
-
 		 return 1
 	endfunction
-
 	augroup AutoView
 		 autocmd!
 		 " Autosave & Load Views.

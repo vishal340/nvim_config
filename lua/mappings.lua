@@ -61,21 +61,9 @@ vim.cmd('source $HOME/.config/nvim/lua/config/cmp.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/browse.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/godbolt.lua')
 vim.cmd('source $HOME/.config/nvim/lua/config/format-on-save.lua')
-
+vim.cmd('source $HOME/.config/nvim/lua/config/gist-vim.lua')
 
 keymap('n', '<leader>*', 'g* :let $str=getreg("/")<cr> :Ggrep -q $str')
-require("gist").setup({
-	private = false, -- All gists will be private, you won't be prompted again
-	clipboard = "+", -- The registry to use for copying the Gist URL
-	list = {
-		-- If there are multiple files in a gist you can scroll them,
-		-- with vim-like bindings n/p next previous
-		mappings = {
-			next_file = "<TAB>",
-			prev_file = "<S-TAB>"
-		}
-	}
-})
 
 require('Comment').setup()
 

@@ -14,8 +14,8 @@ set scrolloff=1
 set history=1000
 set belloff=all
 set clipboard+=unnamedplus
-set timeout 
-set timeoutlen=1000 
+set timeout
+set timeoutlen=1000
 set ttimeoutlen=200
 set updatetime=70
 set nobackup

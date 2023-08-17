@@ -56,7 +56,8 @@ inoremap <C-f> <C-o><C-f>
 "startify
 "--------------------------------
 autocmd TabNewEntered * if bufname("%") == "" | silent! Startify | endif
-nnoremap <silent><leader>s :Startify<cr>
+nnoremap <silent><leader>s :vs <bar> :Startify<cr>
+nnoremap <silent><leader>S :sp <bar> :Startify<cr>
  let g:startify_session_dir= '~/.config/nvim/sessions/'
 
  "the convention used to save session is session name then underscore
