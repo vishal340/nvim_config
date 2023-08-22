@@ -3,10 +3,10 @@ filetype plugin indent on
 let mapleader = " "
 let maplocalleader ="\\"
 
-nnoremap <localleader><localleader> :source ~/.config/nvim/init.lua<cr>
+nnoremap <localleader><localleader> :source ~/.config/nvim_old/init.lua<cr>
 
 "TODO: the line below doesn't work as intended
-noremap gft :tabnew <bar> :edit <cfile><cr>
+nnoremap gft :tabnew <bar> :edit <cfile><cr>
 
 nnoremap gfv :vs <bar> :edit <cfile><cr>
 nnoremap gfh :sp <bar> :edit <cfile><cr>
